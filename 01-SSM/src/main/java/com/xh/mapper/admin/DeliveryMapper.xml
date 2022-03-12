@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.mapper.admin.DeliveryMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.entity.Delivery" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dtid" property="dtid" jdbcType="INTEGER" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+    <result column="dtime" property="dtime" jdbcType="VARCHAR" />
+    <result column="dnum" property="dnum" jdbcType="INTEGER" />
+    <result column="dtype" property="dtype" jdbcType="INTEGER" />
+    <result column="dfctory" property="dfctory" jdbcType="VARCHAR" />
+    <result column="dtrange" property="dtrange" jdbcType="VARCHAR" />
+    <result column="dcollege" property="dcollege" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dtid, dname, dtime, dnum, dtype, dfctory, dtrange, dcollege
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xh.entity.DeliveryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from delivery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from delivery
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from delivery
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xh.entity.DeliveryExample" >
+    delete from delivery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xh.entity.Delivery" >
+    insert into delivery (id, dtid, dname, 
+      dtime, dnum, dtype, 
+      dfctory, dtrange, dcollege
+      )
+    values (#{id,jdbcType=INTEGER}, #{dtid,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, 
+      #{dtime,jdbcType=VARCHAR}, #{dnum,jdbcType=INTEGER}, #{dtype,jdbcType=INTEGER}, 
+      #{dfctory,jdbcType=VARCHAR}, #{dtrange,jdbcType=VARCHAR}, #{dcollege,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.entity.Delivery" >
+    insert into delivery
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dtid != null" >
+        dtid,
+      </if>
+      <if test="dname != null" >
+        dname,
+      </if>
+      <if test="dtime != null" >
+        dtime,
+      </if>
+      <if test="dnum != null" >
+        dnum,
+      </if>
+      <if test="dtype != null" >
+        dtype,
+      </if>
+      <if test="dfctory != null" >
+        dfctory,
+      </if>
+      <if test="dtrange != null" >
+        dtrange,
+      </if>
+      <if test="dcollege != null" >
+        dcollege,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dtid != null" >
+        #{dtid,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null" >
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null" >
+        #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="dnum != null" >
+        #{dnum,jdbcType=INTEGER},
+      </if>
+      <if test="dtype != null" >
+        #{dtype,jdbcType=INTEGER},
+      </if>
+      <if test="dfctory != null" >
+        #{dfctory,jdbcType=VARCHAR},
+      </if>
+      <if test="dtrange != null" >
+        #{dtrange,jdbcType=VARCHAR},
+      </if>
+      <if test="dcollege != null" >
+        #{dcollege,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xh.entity.DeliveryExample" resultType="java.lang.Integer" >
+    select count(*) from delivery
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update delivery
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dtid != null" >
+        dtid = #{record.dtid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dname != null" >
+        dname = #{record.dname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dtime != null" >
+        dtime = #{record.dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dnum != null" >
+        dnum = #{record.dnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.dtype != null" >
+        dtype = #{record.dtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.dfctory != null" >
+        dfctory = #{record.dfctory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dtrange != null" >
+        dtrange = #{record.dtrange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcollege != null" >
+        dcollege = #{record.dcollege,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update delivery
+    set id = #{record.id,jdbcType=INTEGER},
+      dtid = #{record.dtid,jdbcType=INTEGER},
+      dname = #{record.dname,jdbcType=VARCHAR},
+      dtime = #{record.dtime,jdbcType=VARCHAR},
+      dnum = #{record.dnum,jdbcType=INTEGER},
+      dtype = #{record.dtype,jdbcType=INTEGER},
+      dfctory = #{record.dfctory,jdbcType=VARCHAR},
+      dtrange = #{record.dtrange,jdbcType=VARCHAR},
+      dcollege = #{record.dcollege,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.entity.Delivery" >
+    update delivery
+    <set >
+      <if test="dtid != null" >
+        dtid = #{dtid,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null" >
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null" >
+        dtime = #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="dnum != null" >
+        dnum = #{dnum,jdbcType=INTEGER},
+      </if>
+      <if test="dtype != null" >
+        dtype = #{dtype,jdbcType=INTEGER},
+      </if>
+      <if test="dfctory != null" >
+        dfctory = #{dfctory,jdbcType=VARCHAR},
+      </if>
+      <if test="dtrange != null" >
+        dtrange = #{dtrange,jdbcType=VARCHAR},
+      </if>
+      <if test="dcollege != null" >
+        dcollege = #{dcollege,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.entity.Delivery" >
+    update delivery
+    set dtid = #{dtid,jdbcType=INTEGER},
+      dname = #{dname,jdbcType=VARCHAR},
+      dtime = #{dtime,jdbcType=VARCHAR},
+      dnum = #{dnum,jdbcType=INTEGER},
+      dtype = #{dtype,jdbcType=INTEGER},
+      dfctory = #{dfctory,jdbcType=VARCHAR},
+      dtrange = #{dtrange,jdbcType=VARCHAR},
+      dcollege = #{dcollege,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

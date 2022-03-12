@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xh.mapper.admin.FacilityMapper" >
+  <resultMap id="BaseResultMap" type="com.xh.entity.Facility" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ftid" property="ftid" jdbcType="INTEGER" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="ftime" property="ftime" jdbcType="VARCHAR" />
+    <result column="fnum" property="fnum" jdbcType="INTEGER" />
+    <result column="ftype" property="ftype" jdbcType="INTEGER" />
+    <result column="ffctory" property="ffctory" jdbcType="VARCHAR" />
+    <result column="ftrange" property="ftrange" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ftid, fname, ftime, fnum, ftype, ffctory, ftrange
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xh.entity.FacilityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from facility
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from facility
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xh.entity.FacilityExample" >
+    delete from facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xh.entity.Facility" >
+    insert into facility (id, ftid, fname, 
+      ftime, fnum, ftype, 
+      ffctory, ftrange)
+    values (#{id,jdbcType=INTEGER}, #{ftid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, 
+      #{ftime,jdbcType=VARCHAR}, #{fnum,jdbcType=INTEGER}, #{ftype,jdbcType=INTEGER}, 
+      #{ffctory,jdbcType=VARCHAR}, #{ftrange,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xh.entity.Facility" >
+    insert into facility
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ftid != null" >
+        ftid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="ftime != null" >
+        ftime,
+      </if>
+      <if test="fnum != null" >
+        fnum,
+      </if>
+      <if test="ftype != null" >
+        ftype,
+      </if>
+      <if test="ffctory != null" >
+        ffctory,
+      </if>
+      <if test="ftrange != null" >
+        ftrange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ftid != null" >
+        #{ftid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftime != null" >
+        #{ftime,jdbcType=VARCHAR},
+      </if>
+      <if test="fnum != null" >
+        #{fnum,jdbcType=INTEGER},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="ffctory != null" >
+        #{ffctory,jdbcType=VARCHAR},
+      </if>
+      <if test="ftrange != null" >
+        #{ftrange,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xh.entity.FacilityExample" resultType="java.lang.Integer" >
+    select count(*) from facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update facility
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftid != null" >
+        ftid = #{record.ftid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftime != null" >
+        ftime = #{record.ftime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fnum != null" >
+        fnum = #{record.fnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftype != null" >
+        ftype = #{record.ftype,jdbcType=INTEGER},
+      </if>
+      <if test="record.ffctory != null" >
+        ffctory = #{record.ffctory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftrange != null" >
+        ftrange = #{record.ftrange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update facility
+    set id = #{record.id,jdbcType=INTEGER},
+      ftid = #{record.ftid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      ftime = #{record.ftime,jdbcType=VARCHAR},
+      fnum = #{record.fnum,jdbcType=INTEGER},
+      ftype = #{record.ftype,jdbcType=INTEGER},
+      ffctory = #{record.ffctory,jdbcType=VARCHAR},
+      ftrange = #{record.ftrange,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xh.entity.Facility" >
+    update facility
+    <set >
+      <if test="ftid != null" >
+        ftid = #{ftid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftime != null" >
+        ftime = #{ftime,jdbcType=VARCHAR},
+      </if>
+      <if test="fnum != null" >
+        fnum = #{fnum,jdbcType=INTEGER},
+      </if>
+      <if test="ftype != null" >
+        ftype = #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="ffctory != null" >
+        ffctory = #{ffctory,jdbcType=VARCHAR},
+      </if>
+      <if test="ftrange != null" >
+        ftrange = #{ftrange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xh.entity.Facility" >
+    update facility
+    set ftid = #{ftid,jdbcType=INTEGER},
+      fname = #{fname,jdbcType=VARCHAR},
+      ftime = #{ftime,jdbcType=VARCHAR},
+      fnum = #{fnum,jdbcType=INTEGER},
+      ftype = #{ftype,jdbcType=INTEGER},
+      ffctory = #{ffctory,jdbcType=VARCHAR},
+      ftrange = #{ftrange,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
