@@ -87,6 +87,7 @@ public class AdminController {
      */
     @RequestMapping("/chukuback.action")
     public String chukuback(Facility facility){
+        System.out.println("11");
         int num = adminService.updateById(facility);
         System.out.println(num);
         return "forward:/admin/fenye.action";
