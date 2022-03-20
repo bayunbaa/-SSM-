@@ -86,6 +86,27 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+
+  <!-- List<Facility> findByAdminVo(AdminVo adminVo); -->
+  <select id="findByAdminVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from facility
+    <where>
+      <if test="pname!=null">
+          and fname like concat('%',#{pname},'%')
+      </if>
+      <if test="typeid!=-1">
+        and ftype = #{typeid}
+      </if>
+    </where>
+  </select>
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -165,6 +186,16 @@
       </if>
     </trim>
   </insert>
+
+
+
+
+
+
+
+
+
+
   <select id="countByExample" parameterType="com.xh.entity.FacilityExample" resultType="java.lang.Integer" >
     select count(*) from facility
     <if test="_parameter != null" >

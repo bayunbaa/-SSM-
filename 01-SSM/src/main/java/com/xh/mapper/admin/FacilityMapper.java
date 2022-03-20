@@ -3,6 +3,8 @@ package com.xh.mapper.admin;
 import com.xh.entity.Facility;
 import com.xh.entity.FacilityExample;
 import java.util.List;
+
+import com.xh.entity.admin.AdminVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface FacilityMapper {
@@ -27,4 +29,11 @@ public interface FacilityMapper {
     int updateByPrimaryKeySelective(Facility record);
 
     int updateByPrimaryKey(Facility record);
+
+    /**
+     * 多条件查询出库商品
+     * @param adminVo
+     * @return
+     */
+    List<Facility> findByAdminVo(AdminVo adminVo);
 }

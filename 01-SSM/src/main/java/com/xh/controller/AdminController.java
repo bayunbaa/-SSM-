@@ -2,12 +2,14 @@ package com.xh.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
+import com.xh.entity.admin.AdminVo;
 import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -92,4 +94,20 @@ public class AdminController {
         System.out.println(num);
         return "forward:/admin/fenye.action";
     }
+
+    /**
+     * 多条件查询
+     */
+    @RequestMapping("/ajaxSplit.action")
+    public String ajaxSplit(AdminVo adminVo, HttpServletRequest request, Integer page){
+        if (page == null){
+            page=1;
+        }
+        PageInfo<List<Facility>> info =  adminService.findByAdminVo(adminVo, size, page);
+        System.out.println(info);
+        request.setAttribute("info", info);
+        request.setAttribute("adminVo", adminVo);
+        return "admin/chuku";
+    }
+
 }

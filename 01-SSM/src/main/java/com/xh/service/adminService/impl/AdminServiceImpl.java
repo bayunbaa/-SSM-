@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xh.entity.Delivery;
 import com.xh.entity.Facility;
 import com.xh.entity.FacilityExample;
+import com.xh.entity.admin.AdminVo;
 import com.xh.mapper.admin.DeliveryMapper;
 import com.xh.mapper.admin.FacilityMapper;
 import com.xh.service.adminService.AdminService;
@@ -116,5 +117,18 @@ public class AdminServiceImpl implements AdminService {
        }
 
         return num;
+    }
+
+    /**
+     * 出库多条件查询
+     * @param adminVo
+     * @return
+     */
+    @Override
+    public PageInfo<List<Facility>> findByAdminVo(AdminVo adminVo, Integer size, Integer page) {
+        PageHelper.startPage(page, size);
+        List<Facility> list = facilityMapper.findByAdminVo(adminVo);
+        PageInfo<List<Facility>> pageInfo = new PageInfo(list);
+        return pageInfo;
     }
 }

@@ -2,6 +2,7 @@ package com.xh.service.adminService;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
+import com.xh.entity.admin.AdminVo;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface AdminService {
     Facility findById(Integer id);
     //根据设备id,出库设备
     int updateById(Facility facility);
+    //出库多条件查询
+    PageInfo<List<Facility>>  findByAdminVo(AdminVo adminVo ,Integer size, Integer page);
 }

@@ -80,7 +80,7 @@
     $(function(){
         $("#zhuce").click(function(){
             // 点击注册按钮跳到相应的注册页面
-            window.location.href="http://www.baidu.com"
+            window.location.href="./register.jsp"
         })
     })
 
