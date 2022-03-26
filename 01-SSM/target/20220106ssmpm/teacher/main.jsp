@@ -47,9 +47,9 @@
     <span class="icon-user"></span>设备维修管理
 </h2>
     <ul style="display: block">
-        <li><a href="/ssh_xybxsys/manage_manage.do" target="right"><span
+        <li><a href="${pageContext.servletContext.contextPath}/teacher/sheBeiBaoXiu.jsp" target="right"><span
                 class="icon-caret-right"></span>发布报修设备</a></li>
-        <li><a href="/ssh_xybxsys/worker_worker.do" target="right"><span
+        <li><a href="${pageContext.request.contextPath}/teacher/baoXiuJinDu.action" target="right"><span
                 class="icon-caret-right"></span>查看报修设备进度</a></li>
     </ul>
 
@@ -66,7 +66,7 @@
         <span class="icon-user"></span>用户管理
     </h2>
     <ul style="display: block">
-        <li><a href="/ssh_xybxsys/manage_manage.do" target="right"><span
+        <li><a href="${pageContext.servletContext.contextPath}/teacher/teacherEdit.jsp" target="right"><span
                 class="icon-caret-right"></span>修改个人资料</a></li>
     </ul>
 

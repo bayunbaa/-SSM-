@@ -1,9 +1,8 @@
-package com.xh.controller.student;
+package com.xh.controller.teacher;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.User;
 import com.xh.entity.student.Repairs;
-import com.xh.service.loginservice.LoginService;
 import com.xh.service.studentService.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +13,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * @Description:
+ * @Description: 教室提交的
  * @Author: xiaohao
- * @Time: 2022/3/26 13:48
+ * @Time: 2022/3/26 19:15
  */
 @Controller
-@RequestMapping("/student")
-public class StudentController {
-    //注入，用于操作设备报修表
+@RequestMapping("/teacher")
+public class TeacherController {
+    //因为学生有了老师的部分功能，我们这里直接调用学生的功能
     @Autowired
     private StudentService studentService;
 
@@ -42,7 +41,7 @@ public class StudentController {
         //将报修设备信息存入到数据库中
         int num = studentService.insert(repairs);
 
-        return "student/sheBeiBaoXiualert";
+        return "teacher/sheBeiBaoXiualert";
     }
 
     /**
@@ -62,7 +61,7 @@ public class StudentController {
          */
         PageInfo<List<Repairs>> info = studentService.findByUid(page, user.getUid());
         request.setAttribute("info",info);
-        return "student/sheBeiJinDu";
+        return "teacher/sheBeiJinDu";
     }
 
 
@@ -72,14 +71,14 @@ public class StudentController {
      * @param session
      * @return
      */
-    @RequestMapping("/studentEdit.action")
-    public String studentEdit(User user, HttpSession session){
+    @RequestMapping("/teacherEdit.action")
+    public String teacherEdit(User user, HttpSession session){
         User u = (User) session.getAttribute("user");
         user.setUid(u.getUid());
         user.setRols(u.getRols());
         System.out.println(u);
-       //更新密码
+        //更新密码
         int num =  studentService.updateByUid(user);
-        return "student/studentEditalert";
+        return "teacher/teacherEditalert";
     }
 }

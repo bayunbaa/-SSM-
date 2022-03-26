@@ -35,6 +35,7 @@ public class StudentServiceImpl implements StudentService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
         repairs.setCreatetime(format);
+        //提交之后，显示处理中。
         repairs.setPlan("1");
         int num = repairsMapper.insertSelective(repairs);
 
@@ -54,7 +55,7 @@ public class StudentServiceImpl implements StudentService {
         //将当前用户id封装里面
         example.createCriteria().andUidEqualTo(uid);
         List<Repairs> repairsList = repairsMapper.selectByExample(example);
-        //给查出来的报修记录信息设置编号
+        //给查出来的报修记录信息设置编号，并对新创建的报修记录显示处理中
         for (int i = 0; i < repairsList.size(); i++) {
             repairsList.get(i).setId(i+1);
             if (repairsList.get(i).getPlan().equals("1")){
