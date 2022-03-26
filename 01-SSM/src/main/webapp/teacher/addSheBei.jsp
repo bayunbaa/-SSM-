@@ -22,8 +22,8 @@
 
 <body >
     <center>
-        <h1>报修设备信息</h1>
-        <form action="${pageContext.servletContext.contextPath}/teacher/baoxiu.action" method="post">
+        <h1>申请安装设备</h1>
+        <form action="${pageContext.servletContext.contextPath}/teacher/addSheBei.action" method="post">
             <div class="input-group mb-3">
                 <table style="margin-left: 360px">
                     <tr>
@@ -37,14 +37,14 @@
                             <input type="text" name="location" class="form-control" placeholder="如:303教室"  aria-describedby="basic-addon1"></td>
                     </tr>
                     <tr>
-                        <td><p><h5>详情:</h5></p></td>
+                        <td><p><h5>申请原因:</h5></p></td>
                         <td>
-                            <textarea name="details" class="form-control"></textarea>
+                            <textarea name="test" class="form-control"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center" style="padding-top: 10px">
-                            <input  type="submit" class="btn btn-primary" value="提交报修">
+                            <input  type="submit" class="btn btn-primary" value="提交申请">
                         </td>
                     </tr>
 

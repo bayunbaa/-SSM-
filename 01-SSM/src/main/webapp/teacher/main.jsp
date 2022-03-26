@@ -57,8 +57,10 @@
         <span class="icon-user"></span>设备管理
     </h2>
     <ul style="display: block">
-        <li><a href="/ssh_xybxsys/manage_manage.do" target="right"><span
+        <li><a href="${pageContext.servletContext.contextPath}/teacher/addSheBei.jsp" target="right"><span
                 class="icon-caret-right"></span>添加设备</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/teacher/addSheBeiJindu.action" target="right"><span
+                class="icon-caret-right"></span>查看申请添加设备进度</a></li>
     </ul>
 
 

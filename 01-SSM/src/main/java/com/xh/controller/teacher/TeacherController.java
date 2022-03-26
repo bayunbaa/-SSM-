@@ -3,7 +3,9 @@ package com.xh.controller.teacher;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.User;
 import com.xh.entity.student.Repairs;
+import com.xh.entity.teacher.Addfacility;
 import com.xh.service.studentService.StudentService;
+import com.xh.service.teacherService.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,9 @@ public class TeacherController {
     //因为学生有了老师的部分功能，我们这里直接调用学生的功能
     @Autowired
     private StudentService studentService;
+    //操作老师表
+    @Autowired
+    private TeacherService teacherService;
 
 
     /**
@@ -63,6 +68,47 @@ public class TeacherController {
         request.setAttribute("info",info);
         return "teacher/sheBeiJinDu";
     }
+
+
+    /**
+     * 添加设备
+     * @param addfacility
+     * @param session
+     * @return
+     */
+    @RequestMapping("/addSheBei.action")
+    public String addSheBei(Addfacility addfacility, HttpSession session){
+        //将当前用户登录的Id，存进去
+        User user = (User) session.getAttribute("user");
+        addfacility.setUid(user.getUid()+"");
+        int num = teacherService.insert(addfacility);
+
+        return "teacher/addSheBeialert";
+    }
+
+
+
+    /* addSheBeiJindu.action */
+
+    /**
+     * 添加设备的进度
+     * @param page
+     * @param session
+     * @param request
+     * @return
+     */
+    @RequestMapping("/addSheBeiJindu.action")
+    public String addSheBeiJindu(Integer page,HttpSession session, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        User user =(User) session.getAttribute("user");
+        PageInfo<List<Addfacility>> info = teacherService.findByUid(page, user.getUid());
+        request.setAttribute("info",info);
+        return "teacher/addSheBeiJinDu";
+    }
+
+
 
 
     /**
