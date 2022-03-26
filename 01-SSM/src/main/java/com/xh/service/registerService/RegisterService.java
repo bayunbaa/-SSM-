@@ -14,4 +14,11 @@ public interface RegisterService {
      * @return
      */
     User findByUname(String uname);
+
+    /**
+     * 将记录插入到数据库
+     * @param user
+     * @return
+     */
+    int inserUser(User user);
 }

@@ -14,4 +14,11 @@ public interface RegisterMapper {
      * @return
      */
     User findByUname(String uname);
+
+    /**
+     * 注册用户，将这条记录插入到数据库
+     * @param user
+     * @return
+     */
+    int insertUser(User user);
 }

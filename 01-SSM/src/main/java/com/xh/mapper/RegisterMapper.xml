@@ -7,4 +7,9 @@
     <select id="findByUname" resultType="com.xh.entity.User">
         select * from user where uname = #{uname}
     </select>
+
+    <!-- int insertUser(User user); -->
+    <insert id="insertUser">
+        insert into user(uname,upassword,rols) values (#{uname},#{upassword},#{rols})
+    </insert>
 </mapper>

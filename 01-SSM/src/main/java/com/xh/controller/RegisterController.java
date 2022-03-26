@@ -32,4 +32,24 @@ public class RegisterController {
         System.out.println(user);
         return user;
     }
+
+
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     */
+    @RequestMapping("/zhuce.action")
+    @ResponseBody
+    public String Zhuce(User user){
+        System.out.println(user);
+        //去注册用户
+        int num = registerService.inserUser(user);
+        if (num > 0){
+            return "1";
+        }else {
+            return null;
+        }
+
+    }
 }

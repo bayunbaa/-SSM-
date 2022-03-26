@@ -17,9 +17,15 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private RegisterMapper registerMapper;
 
-
+    //验证用的，判断当前用户名是否已经存在
     @Override
     public User findByUname(String uname) {
         return registerMapper.findByUname(uname);
+    }
+
+    //注册用户
+    @Override
+    public int inserUser(User user) {
+        return registerMapper.insertUser(user);
     }
 }

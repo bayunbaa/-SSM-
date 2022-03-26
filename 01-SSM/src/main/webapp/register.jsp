@@ -28,7 +28,7 @@
                 <a class="brand-logo" href="index.html">用户注册</a>
             </div>
             <div class="form-section">
-                <h3></h3>
+                <h3 id="hh3"></h3>
                 <form action="#" method="post" class="signin-form">
                     <div class="form-input">
                         <input type="text" id="uname" onchange="nameYanzheng()"  name="uname" placeholder="用户名" required="" autofocus>
@@ -52,7 +52,7 @@
                         <span id="s4"  style="color: red"></span>
                     </div>
                     <button type="button" id="btn" onclick="btnYanzheng()"  class="btn btn-primary theme-button mt-4">注册</button>
-                </form><p class="signup">去登录界面 <a href="#login.html" class="signuplink">Login now</a></p>
+                </form><p class="signup">去登录界面 <a href="${pageContext.request.contextPath}/login.jsp" class="signuplink">Login now</a></p>
             </div>
         </div>
     </div>
@@ -129,26 +129,43 @@
         var s2 = $("#s2").text();
         var s3 = $("#s3").text();
         var s4 = $("#s4").text();
-        alert(s1)
 
-        if (s1 != ''|| s1!=null ) {
-            alert("s1")
+        if (s1.length>0) {
             return;
         }
-        if (s2!=null ||s2 != '') {
-            alert("s2")
+        if (s2.length>0) {
             return;
         }
-        if (s3!=null ||s3 != '') {
-            alert("s3")
+        if (s3.length>0) {
             return;
         }
-        if (s4!=null ||s4 != '') {
+        if (s4.length>0) {
             return;
         }
-        alert("成功")
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/register/zhuce.action",
+            data: {
+                'uname':$("#uname").val(),
+                'rols':$("#rols").val(),
+                'upassword':$("#upassword1").val()
+            },
+            success: function(data){
+                if (data!=null){
+                    $("#hh3").html("注册成功");
+                } else {
+                    $("#hh3").html("注册失败");
+                }
+
+            }
+       });
+
 
     }
+
 
 
 
