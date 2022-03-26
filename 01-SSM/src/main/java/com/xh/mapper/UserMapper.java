@@ -6,6 +6,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+    /**
+     * 查询是否有当前用户
+     * @param user
+     * @return
+     */
+    List<User> selectByNameAndPassowrdAndRols(User user);
+
+
+
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
@@ -27,4 +36,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+
 }

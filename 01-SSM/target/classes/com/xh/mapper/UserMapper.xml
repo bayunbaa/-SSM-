@@ -68,6 +68,30 @@
   <sql id="Base_Column_List" >
     uid, uname, upassword, rols
   </sql>
+
+
+  <!--  List<User> selectByNameAndPassowrdAndRols(User user); -->
+  <!--
+     private String uname;
+
+    private String upassword;
+
+    private Integer rols;
+  -->
+  <select id="selectByNameAndPassowrdAndRols" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where
+      uname = #{uname}
+      and upassword = #{upassword}
+      and rols = #{rols}
+  </select>
+
+
+
+
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xh.entity.UserExample" >
     select
     <if test="distinct" >

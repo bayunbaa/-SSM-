@@ -18,11 +18,11 @@ public class LoginServiceImpl implements LoginService {
     public User findUser(User user) {
         UserExample example = new UserExample();
         //将条件封装在里面
-        example.createCriteria().andRolsEqualTo(user.getRols());
-        example.createCriteria().andUnameEqualTo(user.getUname());
-        example.createCriteria().andUpasswordEqualTo(user.getUpassword());
+//        example.createCriteria().andRolsEqualTo(user.getRols());
+//        example.createCriteria().andUnameEqualTo(user.getUname());
+//        example.createCriteria().andUpasswordEqualTo(user.getUpassword());
         //查询是否有当前用户
-        List<User> userList = userMapper.selectByExample(example);
+        List<User> userList = userMapper.selectByNameAndPassowrdAndRols(user);
         System.out.println("userList:"+userList);
         //判断查询的集合里面是否有用户
         if (userList.size() > 0){
