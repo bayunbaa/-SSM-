@@ -2,14 +2,13 @@ package com.xh.service.adminService.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xh.entity.Delivery;
-import com.xh.entity.Facility;
-import com.xh.entity.FacilityExample;
+import com.xh.entity.*;
 import com.xh.entity.admin.AdminVo;
 import com.xh.entity.student.Repairs;
 import com.xh.entity.student.RepairsExample;
 import com.xh.entity.teacher.Addfacility;
 import com.xh.entity.teacher.AddfacilityExample;
+import com.xh.mapper.UserMapper;
 import com.xh.mapper.admin.DeliveryMapper;
 import com.xh.mapper.admin.FacilityMapper;
 import com.xh.mapper.student.RepairsMapper;
@@ -18,6 +17,7 @@ import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.dc.pr.PRError;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +44,9 @@ public class AdminServiceImpl implements AdminService {
     //操作维修记录
     @Autowired
     private RepairsMapper repairsMapper;
+    //操作user表
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public int add(Facility facility) {
@@ -307,6 +310,73 @@ public class AdminServiceImpl implements AdminService {
                 repairsList.get(i).setPlan("已处理");
             }
         }
+        return info;
+    }
+
+    /**
+     * ajax判断维修工用户名是否重复
+     * @param uname
+     * @return
+     */
+    @Override
+    public User findAjaxUname(String uname) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUnameEqualTo(uname);
+        List<User> users = userMapper.selectByExample(example);
+        return users.get(0);
+    }
+
+    /**
+     * 添加维修工账号
+     * @param user
+     * @return
+     */
+    @Override
+    public int addWorker(User user) {
+        user.setRols(2);
+        int num = userMapper.insertSelective(user);
+
+        return num;
+    }
+
+    //查看所有维修工的信息
+    @Override
+    public PageInfo<List<User>> findWorker(Integer page) {
+        PageHelper.startPage(page, 5);
+        UserExample example = new UserExample();
+        example.createCriteria().andRolsEqualTo(2);
+        List<User> users = userMapper.selectByExample(example);
+        PageInfo<List<User>> info = new PageInfo(users);
+        return info;
+    }
+
+    /**
+     * 查看所有老师的信息
+     * @param page
+     * @return
+     */
+    @Override
+    public PageInfo<List<User>> findTeacher(Integer page) {
+        PageHelper.startPage(page, 5);
+        UserExample example = new UserExample();
+        example.createCriteria().andRolsEqualTo(3);
+        List<User> users = userMapper.selectByExample(example);
+        PageInfo<List<User>> info = new PageInfo(users);
+        return info;
+    }
+
+    /**
+     * 查看所有学生的信息
+     * @param page
+     * @return
+     */
+    @Override
+    public PageInfo<List<User>> findStudent(Integer page) {
+        PageHelper.startPage(page, 5);
+        UserExample example = new UserExample();
+        example.createCriteria().andRolsEqualTo(4);
+        List<User> users = userMapper.selectByExample(example);
+        PageInfo<List<User>> info = new PageInfo(users);
         return info;
     }
 }

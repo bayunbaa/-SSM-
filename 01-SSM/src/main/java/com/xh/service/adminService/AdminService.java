@@ -2,6 +2,7 @@ package com.xh.service.adminService;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
+import com.xh.entity.User;
 import com.xh.entity.admin.AdminVo;
 import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
@@ -39,4 +40,14 @@ public interface AdminService {
     PageInfo<List<Repairs>> findServiceByplan(Integer page);
     //查询所有已修的设备信息
     PageInfo<List<Repairs>> findServiceByYiXiuplan(Integer page);
+    //ajax判断维修工用户名是否重复
+    User findAjaxUname(String uname);
+    //添加维修工账号
+    int addWorker(User user);
+    //查看全部维修工的信息
+    PageInfo<List<User>> findWorker(Integer page);
+    //查看全部教师的信息
+    PageInfo<List<User>> findTeacher(Integer page);
+    //查看全部学生的信息
+    PageInfo<List<User>> findStudent(Integer page);
 }

@@ -2,6 +2,7 @@ package com.xh.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
+import com.xh.entity.User;
 import com.xh.entity.admin.AdminVo;
 import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -231,6 +233,84 @@ public class AdminController {
         request.setAttribute("info", info);
         return "admin/WeiXiuSheBei";
     }
+
+    /**
+     * 注册维修工账号，ajax判断用户名是否重读
+     * @return
+     */
+    @RequestMapping("/ajaxUname.action")
+    @ResponseBody
+    public String ajaxUname(String uname){
+        System.out.println("呀呀呀");
+        User user = adminService.findAjaxUname(uname);
+        if (user == null){
+            return null;
+        }
+        return "1";
+    }
+
+
+    /**
+     * 添加维修人员账号
+     * @param user
+     * @return
+     */
+    @RequestMapping("/addWorker.action")
+    public String addWorker(User user){
+        int num = adminService.addWorker(user);
+        return "admin/addWorkerAlert";
+    }
+
+
+    /**
+     * 查看所有的维修工信息
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findWork.action")
+    public String findWork(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<User>> info =  adminService.findWorker(page);
+        request.setAttribute("info", info);
+        return "admin/findWorker";
+    }
+
+    /**
+     * 查看所有的老师信息
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findTeacher.action")
+    public String findTeacher(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<User>> info =  adminService.findTeacher(page);
+        request.setAttribute("info", info);
+        return "admin/findTeacher";
+    }
+
+    /**
+     * 查看所有的学生信息
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findStudent.action")
+    public String findStudent(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<User>> info =  adminService.findStudent(page);
+        request.setAttribute("info", info);
+        return "admin/findStudent";
+    }
+
+
 
 
 
