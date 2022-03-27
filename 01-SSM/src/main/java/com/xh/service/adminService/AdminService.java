@@ -3,6 +3,7 @@ package com.xh.service.adminService;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
 import com.xh.entity.admin.AdminVo;
+import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
 
 import java.util.List;
@@ -34,4 +35,8 @@ public interface AdminService {
 
     //查看所有已安装的设备
     PageInfo<List<Addfacility>> findAddfacilityByPlan(Integer page);
+    //查询所有未维修设备信息
+    PageInfo<List<Repairs>> findServiceByplan(Integer page);
+    //查询所有已修的设备信息
+    PageInfo<List<Repairs>> findServiceByYiXiuplan(Integer page);
 }

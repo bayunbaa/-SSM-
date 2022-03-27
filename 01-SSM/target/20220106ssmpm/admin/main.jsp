@@ -56,7 +56,7 @@
         <li><a href="${pageContext.servletContext.contextPath}/admin/findAll.action" target="right"><span
                 class="icon-caret-right"></span>学院所需设备</a></li>
         <li><a href="${pageContext.servletContext.contextPath}/admin/findAddfacilityByPlan.action" target="right"><span
-                class="icon-caret-right"></span>查看已设备信息</a></li>
+                class="icon-caret-right"></span>查看已安装设备信息</a></li>
 
 
 
@@ -67,8 +67,11 @@
         <span class="icon-user"></span>设备维修管理
     </h2>
     <ul style="display: block">
-        <li><a href="/ssh_xybxsys/manage_manage.do" target="right"><span
-                class="icon-caret-right"></span>查看设备信息</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/admin/chaKanWeiXiuXinXi.action" target="right"><span
+                class="icon-caret-right"></span>查看未维修设备信息</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/admin/chaKanYiXiuXinXi.action" target="right"><span
+                class="icon-caret-right"></span>查看已维修设备信息</a></li>
+
     </ul>
 
     <h2>

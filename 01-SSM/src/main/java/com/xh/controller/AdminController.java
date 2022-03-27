@@ -3,6 +3,7 @@ package com.xh.controller;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
 import com.xh.entity.admin.AdminVo;
+import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
 import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,6 +195,41 @@ public class AdminController {
         PageInfo<List<Addfacility>> info =  adminService.findAddfacilityByPlan(page);
         request.setAttribute("info",info);
         return "admin/chaKanAnZhuangSheBei";
+    }
+
+
+    /**
+     * 查看未维修设备的信息
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/chaKanWeiXiuXinXi.action")
+    public String chaKanWeiXiuXinXi(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Repairs>> info =  adminService.findServiceByplan(page);
+        request.setAttribute("info", info);
+        return "admin/WeiXiuSheBei";
+    }
+
+    /* chaKanYiXiuXinXi.action */
+
+    /**
+     * 查看已维修的设备
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/chaKanYiXiuXinXi.action")
+    public String chaKanYiXiuXinXi(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Repairs>> info =  adminService.findServiceByYiXiuplan(page);
+        request.setAttribute("info", info);
+        return "admin/WeiXiuSheBei";
     }
 
 

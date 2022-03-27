@@ -6,10 +6,13 @@ import com.xh.entity.Delivery;
 import com.xh.entity.Facility;
 import com.xh.entity.FacilityExample;
 import com.xh.entity.admin.AdminVo;
+import com.xh.entity.student.Repairs;
+import com.xh.entity.student.RepairsExample;
 import com.xh.entity.teacher.Addfacility;
 import com.xh.entity.teacher.AddfacilityExample;
 import com.xh.mapper.admin.DeliveryMapper;
 import com.xh.mapper.admin.FacilityMapper;
+import com.xh.mapper.student.RepairsMapper;
 import com.xh.mapper.teacher.AddfacilityMapper;
 import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ public class AdminServiceImpl implements AdminService {
     //需要安装设备的表
     @Autowired
     private AddfacilityMapper addfacilityMapper;
+    //操作维修记录
+    @Autowired
+    private RepairsMapper repairsMapper;
 
     @Override
     public int add(Facility facility) {
@@ -251,6 +257,56 @@ public class AdminServiceImpl implements AdminService {
             }
         }
         PageInfo<List<Addfacility>> info = new PageInfo(addfacilityList);
+        return info;
+    }
+
+    /**
+     * 查看未维修设备的信息
+     * @param page
+     * @return
+     */
+    @Override
+    public PageInfo<List<Repairs>> findServiceByplan(Integer page) {
+        PageHelper.startPage(page, 5);
+        //封装条件
+        RepairsExample example = new RepairsExample();
+        example.createCriteria().andPlanEqualTo("1");
+        List<Repairs> repairsList = repairsMapper.selectByExample(example);
+        PageInfo<List<Repairs>> info = new PageInfo(repairsList);
+
+        for (int i = 0; i < repairsList.size(); i++) {
+            if (repairsList.get(i).getPlan().equals("1")){
+                repairsList.get(i).setPlan("处理中");
+            }
+            if (repairsList.get(i).getPlan().equals("2")){
+                repairsList.get(i).setPlan("已处理");
+            }
+        }
+        return info;
+    }
+
+    /**
+     * 查看已修设备记录
+     * @param page
+     * @return
+     */
+    @Override
+    public PageInfo<List<Repairs>> findServiceByYiXiuplan(Integer page) {
+        PageHelper.startPage(page, 5);
+        //封装条件
+        RepairsExample example = new RepairsExample();
+        example.createCriteria().andPlanEqualTo("2");
+        List<Repairs> repairsList = repairsMapper.selectByExample(example);
+        PageInfo<List<Repairs>> info = new PageInfo(repairsList);
+
+        for (int i = 0; i < repairsList.size(); i++) {
+            if (repairsList.get(i).getPlan().equals("1")){
+                repairsList.get(i).setPlan("处理中");
+            }
+            if (repairsList.get(i).getPlan().equals("2")){
+                repairsList.get(i).setPlan("已处理");
+            }
+        }
         return info;
     }
 }
