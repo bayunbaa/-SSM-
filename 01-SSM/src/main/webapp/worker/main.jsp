@@ -47,8 +47,10 @@
     <span class="icon-user"></span>设备维修管理
 </h2>
     <ul style="display: block">
-        <li><a href="/ssh_xybxsys/manage_manage.do" target="right"><span
+        <li><a href="${pageContext.servletContext.contextPath}/worker/editBaoXiuState.action" target="right"><span
                 class="icon-caret-right"></span>报修设备信息</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/worker/selectByPlan.action" target="right"><span
+                class="icon-caret-right"></span>查看已解决的问题</a></li>
     </ul>
 
 </div>

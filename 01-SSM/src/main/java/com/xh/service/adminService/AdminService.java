@@ -3,6 +3,7 @@ package com.xh.service.adminService;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
 import com.xh.entity.admin.AdminVo;
+import com.xh.entity.teacher.Addfacility;
 
 import java.util.List;
 
@@ -24,4 +25,13 @@ public interface AdminService {
     int updateById(Facility facility);
     //出库多条件查询
     PageInfo<List<Facility>>  findByAdminVo(AdminVo adminVo ,Integer size, Integer page);
+    //查看教室需要安装的设备
+    PageInfo<List<Addfacility>> findAddFacility(Integer page);
+    //根据要安装设备的名字查询仓库是否有该设备
+    PageInfo<List<Facility>> findByName(Integer page, Integer id);
+    //安装设备，库存减1，如果这是最后一件，就删除该商品，并修改申请安装商品的状态
+    int updateFacilityById(Integer id, Integer n);
+
+    //查看所有已安装的设备
+    PageInfo<List<Addfacility>> findAddfacilityByPlan(Integer page);
 }

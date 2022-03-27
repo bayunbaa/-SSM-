@@ -3,6 +3,7 @@ package com.xh.controller;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.Facility;
 import com.xh.entity.admin.AdminVo;
+import com.xh.entity.teacher.Addfacility;
 import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -109,5 +111,91 @@ public class AdminController {
         request.setAttribute("adminVo", adminVo);
         return "admin/chuku";
     }
+
+
+
+//    findAll.action
+
+    /**
+     * 查看老师需要申请安装的设备
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findAll.action")
+    public String findAll(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Addfacility>> info = adminService.findAddFacility(page);
+        request.setAttribute("info", info);
+        return "admin/shenQingAnZhuangSheBei";
+    }
+
+
+    /**
+     * 点击安装设备
+     * @param session
+     * @param page
+     * @param id  老师申请安装设备的这条记录
+     * @param request
+     * @return
+     */
+    @RequestMapping("/anzhuang.action")
+    public String anzhuang(HttpSession session, Integer page, Integer id, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Facility>> info = adminService.findByName(page, id);
+        if (info.getList().size() <= 0){
+            //将原有的需要添加的记录查出来
+            PageInfo<List<Addfacility>> in1 = adminService.findAddFacility(page);
+            request.setAttribute("info", in1);
+            return "admin/shenQingAnZhuangSheBeialert";
+        }
+        request.setAttribute("info",info);
+        session.setAttribute("product",id);
+        return "admin/anZhuangSheBei";
+    }
+
+
+    /**
+     * 点击直接安装，减少库存
+     * @param id
+     * @return
+     */
+    @RequestMapping("/anzhuangPost.action")
+    public String anzhuangPost(Integer page, Integer id, HttpSession session,HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        //获取老师申请安装设备的这条记录
+        Integer n =(Integer) session.getAttribute("product");
+        int num =  adminService.updateFacilityById(id, n);
+        //查询出所有没有安装好的设备信息
+        PageInfo<List<Addfacility>> info = adminService.findAddFacility(page);
+        request.setAttribute("info", info);
+
+        //设备安装成功
+        return "admin/shenQingAnZhuangSheBeialertPost";
+    }
+
+    /**
+     * 查看已安装设备的信息
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findAddfacilityByPlan.action")
+    public String findAddfacilityByPlan(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Addfacility>> info =  adminService.findAddfacilityByPlan(page);
+        request.setAttribute("info",info);
+        return "admin/chaKanAnZhuangSheBei";
+    }
+
+
 
 }

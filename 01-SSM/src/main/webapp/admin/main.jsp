@@ -53,10 +53,10 @@
                 class="icon-caret-right"></span>设备出库</a></li>
         <li><a href="/ssh_xybxsys/repair_repair.do" target="right"><span
                 class="icon-caret-right"></span>设备采购</a></li>
-        <li><a href="/ssh_xybxsys/repair_repair4.do" target="right"><span
+        <li><a href="${pageContext.servletContext.contextPath}/admin/findAll.action" target="right"><span
                 class="icon-caret-right"></span>学院所需设备</a></li>
-        <li><a href="/ssh_xybxsys/repair_report.do" target="right"><span
-                class="icon-caret-right"></span>查看设备信息</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/admin/findAddfacilityByPlan.action" target="right"><span
+                class="icon-caret-right"></span>查看已设备信息</a></li>
 
 
 
