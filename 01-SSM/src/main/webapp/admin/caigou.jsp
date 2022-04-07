@@ -36,9 +36,19 @@
 <body>
 <center>
     <div id="condition" style="text-align: center">
-        <form id="myform" action="${pageContext.request.contextPath}/worker/selectByPlan.action" method="get">
+        <form id="myform" action="${pageContext.request.contextPath}/admin/caigou.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
-
+            <%--<input type="hidden" id="pn" value="${adminVo.pname}">--%>
+            <%--<input type="hidden" id="ty" value="${adminVo.typeid}">--%>
+            <%--设备名称：<input name="pname" id="pname">&nbsp;&nbsp;&nbsp;--%>
+            <%--设备类型：<select name="typeid" id="typeid">--%>
+            <%--<option value="-1">请选择</option>--%>
+            <%--<option value="1" ${adminVo.typeid==1?'selected':''}>电脑</option>--%>
+            <%--<option value="2" ${adminVo.typeid==2?'selected':''}>多功能黑板</option>--%>
+            <%--<option value="3" ${adminVo.typeid==3?'selected':''}>空调</option>--%>
+            <%--<option value="4" ${adminVo.typeid==4?'selected':''}>其他</option>--%>
+        <%--</select>&nbsp;&nbsp;&nbsp;--%>
+            <%--<input type="submit"/>--%>
         </form>
     </div>
 
@@ -47,26 +57,33 @@
         <tr>
             <th scope="col">编号</th>
             <th scope="col">设备名称</th>
-            <th scope="col">设备位置</th>
-            <th scope="col">详情</th>
-            <th scope="col">提交时间</th>
-            <th scope="col">处理进度</th>
-
-
+            <th scope="col">需要安装设备位置</th>
+            <th scope="col">申请时间</th>
+            <th scope="col">原因</th>
+            <%--<th scope="col">操作</th>--%>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${info.list}" var="c" varStatus="a">
+            <%--
 
+    private String fname;
+
+    private String location;
+
+    private String createtime;
+
+    private String plan;
+
+    private String test;
+            --%>
             <tr>
-                <%--<input type="hidden" id="hidden1" value="${c.id}">--%>
-                <td>${a.index+1}</td>
+                <td>${a.index +1}</td>
                 <td>${c.fname}</td>
                 <td>${c.location}</td>
-                <td>${c.details}</td>
                 <td>${c.createtime}</td>
-                <td>${c.plan}</td>
-
+                <td>${c.test}</td>
+                <%--<td><a href="${pageContext.servletContext.contextPath}/admin/chuku.action?id=${c.id}"><button type="button" class="btn btn-secondary" onclick="caigou(${c.id})">去采购</button></a></td>--%>
             </tr>
         </c:forEach>
         </tbody>
@@ -123,28 +140,16 @@
 
 </body>
 <script>
-    function ajaxPanDuan(id) {
-        alert(id);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/worker/editXinxi.action",
-            data: {
-                'id':id
-            },
-            success: function(){
-                window.location.href="http://localhost:8080/worker/editBaoXiuState.action"
-
-            }
-        });
-    }
-
-
-
     <%-- 为了多条件查询数据回显 --%>
    function ajax(page) {
        $("#page").val(page)
        $("#myform").submit();
    }
+
+   function caigou(id) {
+       window.
+   }
+
 </script>
 
 </html>

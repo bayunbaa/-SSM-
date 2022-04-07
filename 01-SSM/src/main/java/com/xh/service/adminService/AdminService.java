@@ -50,4 +50,6 @@ public interface AdminService {
     PageInfo<List<User>> findTeacher(Integer page);
     //查看全部学生的信息
     PageInfo<List<User>> findStudent(Integer page);
+    //需要商品采购
+    PageInfo<List<Addfacility>> caigou(Integer page);
 }

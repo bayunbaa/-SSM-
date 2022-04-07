@@ -27,7 +27,7 @@
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
         <h1>
-            <img src="/ssh_xybxsys/resource/images/y.jpg"
+            <img src="${pageContext.servletContext.contextPath}/images/guan-li-yuan.jpg"
                  class="radius-circle rotate-hover" height="50" alt="" />
             后台管理中心
         </h1>
@@ -51,13 +51,12 @@
                 class="icon-caret-right"></span>设备进库</a></li>
         <li><a href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=1" target="right"><span
                 class="icon-caret-right"></span>设备出库</a></li>
-        <li><a href="/ssh_xybxsys/repair_repair.do" target="right"><span
-                class="icon-caret-right"></span>设备采购</a></li>
+        <%--<li><a href="/admin/caigou.action" target="right"><span--%>
+                <%--class="icon-caret-right"></span>需要采购设备</a></li>--%>
         <li><a href="${pageContext.servletContext.contextPath}/admin/findAll.action" target="right"><span
                 class="icon-caret-right"></span>学院所需设备</a></li>
         <li><a href="${pageContext.servletContext.contextPath}/admin/findAddfacilityByPlan.action" target="right"><span
-                class="icon-caret-right"></span>查看已安装
-            设备信息</a></li>
+                class="icon-caret-right"></span>查看已安装设备信息</a></li>
 
 
 

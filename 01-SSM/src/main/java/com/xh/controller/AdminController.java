@@ -311,6 +311,21 @@ public class AdminController {
     }
 
 
+    /**
+     * 商品采购
+     * @return
+     */
+    @RequestMapping("/caigou.action")
+    public String caigou(HttpServletRequest request, Integer page){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Addfacility>> info = adminService.caigou(page);
+        request.setAttribute("info", info);
+        return "admin/caigou";
+    }
+
+
 
 
 

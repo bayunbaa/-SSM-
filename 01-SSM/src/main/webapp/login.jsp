@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>${msg}</div>
+                    <span style="color: red; margin-left: 30px">${msg}</span>
                     <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录">
                         <br/>
                         <input type="button" class="button button-block bg-main text-big input-big" id="zhuce" value="注册">

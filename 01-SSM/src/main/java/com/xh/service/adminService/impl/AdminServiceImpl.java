@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sun.dc.pr.PRError;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -378,5 +379,35 @@ public class AdminServiceImpl implements AdminService {
         List<User> users = userMapper.selectByExample(example);
         PageInfo<List<User>> info = new PageInfo(users);
         return info;
+    }
+
+    /**
+     * 需要采购的设备
+     * @param page
+     * @return
+     */
+    @Override
+    public PageInfo<List<Addfacility>> caigou(Integer page) {
+        PageHelper.startPage(page, 5);
+        AddfacilityExample example = new AddfacilityExample();
+        example.createCriteria().andPlanEqualTo("1");
+        //查询出学院没有安装的设备
+        List<Addfacility> addfacilityList = addfacilityMapper.selectByExample(example);
+        //用来存储库里面没有的商品，需要采购的商品
+        List<Addfacility> addfacilities = new ArrayList<>();
+        for (Addfacility a: addfacilityList) {
+            //用来封装条件
+            FacilityExample facilityExample = new FacilityExample();
+            //查询出还没有安装设备，将商品名字封装进去
+            facilityExample.createCriteria().andFnameLike(a.getFname());
+            //开始进行模糊查询
+            List<Facility> list = facilityMapper.selectByExample(facilityExample);
+            //如果没有查询出，就表示这个商品库里面没有，就需要采购
+            if (list.size()<=0){
+                addfacilities.add(a);
+            }
+        }
+        return new PageInfo(addfacilities);
+
     }
 }
