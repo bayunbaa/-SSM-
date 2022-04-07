@@ -66,9 +66,9 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${info.list}" var="c">
+        <c:forEach items="${info.list}" var="c" varStatus="a">
             <tr>
-                <td>${c.id}</td>
+                <td>${a.index +1}</td>
                 <td>${c.ftid}</td>
                 <td>${c.fname}</td>
                 <td>${c.ftime}</td>
