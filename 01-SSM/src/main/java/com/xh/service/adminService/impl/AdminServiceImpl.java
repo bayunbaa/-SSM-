@@ -199,7 +199,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     @Transactional
-    public int updateFacilityById(Integer id, Integer n) {
+    public int updateFacilityById(Integer id, Integer n, String location) {
         int num = 0;
         //需要安装这个设备的信息
         Facility facility = facilityMapper.selectByPrimaryKey(id);
@@ -211,6 +211,7 @@ public class AdminServiceImpl implements AdminService {
         delivery.setDtype(facility.getFtype());
         delivery.setDfctory(facility.getFfctory());
         delivery.setDtrange(facility.getFtrange());
+        delivery.setDcollege(Integer.valueOf(location));
         //当前时间
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd");

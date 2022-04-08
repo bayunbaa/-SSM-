@@ -145,7 +145,7 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/anzhuang.action")
-    public String anzhuang(HttpSession session, Integer page, Integer id, HttpServletRequest request){
+    public String anzhuang(HttpSession session, Integer page, Integer id, String location,HttpServletRequest request){
         if (page == null){
             page = 1;
         }
@@ -158,6 +158,8 @@ public class AdminController {
         }
         request.setAttribute("info",info);
         session.setAttribute("product",id);
+        //将安装设备的位置存进去，后面要使用
+        session.setAttribute("location", location);
         return "admin/anZhuangSheBei";
     }
 
@@ -168,16 +170,20 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/anzhuangPost.action")
-    public String anzhuangPost(Integer page, Integer id, HttpSession session,HttpServletRequest request){
+    public String anzhuangPost(Integer page, Integer id,  HttpSession session,HttpServletRequest request){
         if (page == null){
             page = 1;
         }
         //获取老师申请安装设备的这条记录
         Integer n =(Integer) session.getAttribute("product");
-        int num =  adminService.updateFacilityById(id, n);
+        //获取安装设备的位置
+        String location = (String) session.getAttribute("location");
+
+        int num =  adminService.updateFacilityById(id, n,location);
         //查询出所有没有安装好的设备信息
         PageInfo<List<Addfacility>> info = adminService.findAddFacility(page);
         request.setAttribute("info", info);
+
 
         //设备安装成功
         return "admin/shenQingAnZhuangSheBeialertPost";

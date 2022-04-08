@@ -80,7 +80,7 @@
                 <td>${c.test}</td>
                 <td>${c.createtime}</td>
                 <td>${c.plan}</td>
-                <td><button type="button" id="bu1" class="btn btn-secondary" onclick="anzhuang(${c.id})">安装</button></td>
+                <td><button type="button" id="bu1" class="btn btn-secondary" onclick="anzhuang(${c.id},${c.location})">安装</button></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -143,6 +143,7 @@
             url: "http://localhost:8080/worker/editXinxi.action",
             data: {
                 'id':id
+
             },
             success: function(){
                 window.location.href="http://localhost:8080/worker/editBaoXiuState.action"
@@ -161,8 +162,8 @@
 
 
    /* 点击去安装设备 */
-    function anzhuang(id) {
-        window.location.href="http://localhost:8080/admin/anzhuang.action?id="+id;
+    function anzhuang(id, location) {
+        window.location.href="http://localhost:8080/admin/anzhuang.action?id="+id+"&location="+location;
 
     }
 
