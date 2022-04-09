@@ -2,6 +2,7 @@ package com.xh.controller.work;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.student.Repairs;
+import com.xh.entity.teacher.Addfacility;
 import com.xh.service.workerService.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,6 @@ public class WorkerController {
      */
     @RequestMapping("/selectByPlan.action")
     public String selectByPlan(Integer page, HttpServletRequest request){
-        System.out.println("1");
         if (page == null){
             page = 1;
         }
@@ -70,6 +70,43 @@ public class WorkerController {
         request.setAttribute("info", info);
 
         return "worker/yiJiJue";
+    }
+
+    /* 老师申请安装设备，管理员同意后，维修工需要去安装,这里查出来所有没有安装的设备 */
+    @RequestMapping("/installshebeiPre.action")
+    public String installshebeiPre(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Addfacility>> info =workerService.findAddFacilityByPlan(page);
+        request.setAttribute("info", info);
+        return "worker/xvYaoAnZhuangSheBei";
+    }
+
+    /**
+     * 点击复选框，表示已安装完成这个设备,根据审核通过的这条数据的id
+     * @param id
+     * @return
+     */
+    @RequestMapping("/installshebei.action")
+    @ResponseBody
+    public String installshebei(Integer id){
+       int num = workerService.updateAddFacilityByPlan(id);
+        return "安装成功";
+    }
+
+    /**
+     * 维修工点击安装完成，跳转到新的页面显示，弹出安装成功
+     * @return
+     */
+    @RequestMapping("/installshebeiSuff.action")
+    public String installshebeiSuff(Integer page, HttpServletRequest request){
+        if (page == null){
+            page = 1;
+        }
+        PageInfo<List<Addfacility>> info =workerService.findAddFacilityByPlan(page);
+        request.setAttribute("info", info);
+        return "worker/xvYaoAnZhuangSheBeiAlert";
     }
 
 

@@ -251,13 +251,16 @@ public class AdminServiceImpl implements AdminService {
     public PageInfo<List<Addfacility>> findAddfacilityByPlan(Integer page) {
         PageHelper.startPage(page, 5);
         AddfacilityExample example = new AddfacilityExample();
-        example.createCriteria().andPlanEqualTo("2");
+        example.createCriteria().andPlanEqualTo("3");
         List<Addfacility> addfacilityList = addfacilityMapper.selectByExample(example);
         for (int i = 0; i < addfacilityList.size(); i++) {
             if (addfacilityList.get(i).getPlan().equals("1")){
                 addfacilityList.get(i).setPlan("审核中");
             }
             if (addfacilityList.get(i).getPlan().equals("2")){
+                addfacilityList.get(i).setPlan("审核通过");
+            }
+            if (addfacilityList.get(i).getPlan().equals("3")){
                 addfacilityList.get(i).setPlan("已安装");
             }
         }

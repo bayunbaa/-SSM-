@@ -44,8 +44,8 @@
         <strong><span class="icon-list"></span>菜单列表</strong>
     </div>
     <h2>
-    <span class="icon-user"></span>设备维修管理
-</h2>
+        <span class="icon-user"></span>设备维修管理
+    </h2>
     <ul style="display: block">
         <li><a href="${pageContext.servletContext.contextPath}/worker/editBaoXiuState.action" target="right"><span
                 class="icon-caret-right"></span>报修设备信息</a></li>
@@ -53,7 +53,16 @@
                 class="icon-caret-right"></span>查看已解决的问题</a></li>
     </ul>
 
+    <h2>
+        <span class="icon-user"></span>设备安装管理
+    </h2>
+    <ul style="display: block">
+        <li><a href="${pageContext.servletContext.contextPath}/worker/installshebeiPre.action" target="right"><span
+                class="icon-caret-right"></span>需要安装设备信息</a></li>
+    </ul>
+
 </div>
+
 <script type="text/javascript">
     $(function() {
         $(".leftnav h2").click(function() {

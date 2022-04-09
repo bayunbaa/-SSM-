@@ -2,6 +2,7 @@ package com.xh.service.workerService;
 
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.student.Repairs;
+import com.xh.entity.teacher.Addfacility;
 
 import java.util.List;
 
@@ -31,4 +32,18 @@ public interface WorkerService {
      * @return
      */
     PageInfo<List<Repairs>> selectByPlan(Integer page);
+
+    /**
+     * 查询出管理员已经审核通过的设备，维修人员去安装
+     * @param page
+     * @return
+     */
+    PageInfo<List<Addfacility>> findAddFacilityByPlan(Integer page);
+
+    /**
+     * 根据管理员审核通过的需要安装设备，去安装
+     * @param id
+     * @return
+     */
+    int updateAddFacilityByPlan(Integer id);
 }
