@@ -38,6 +38,10 @@ public class AdminController {
      */
     @RequestMapping("/addShebei.action")
     public String addShebei(Facility facility){
+        Integer ftype = facility.getFtype();
+        if (ftype == -1){
+            return "admin/jinkualerttype";
+        }
         int num = adminService.add(facility);
         System.out.println(num);
 

@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 
-    @RequestMapping("login.action")
+    /**
+     * 启动页面跳转到登录页面
+     * @return
+     */
+    @RequestMapping("/login.action")
     public String login(){
         return "forward:/login.jsp";
     }
