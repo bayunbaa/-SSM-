@@ -15,7 +15,7 @@
 <body>
     <center>
         <h2>公告</h2>
-        <p>${body}</p>
+        <p>${inform.ibody}</p>
         <br/>
         <a href="${pageContext.servletContext.contextPath}/public/editinform.jsp">编辑内容</a>
     </center>

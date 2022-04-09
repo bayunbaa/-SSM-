@@ -2,8 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xh.mapper.InformMapper" >
   <resultMap id="BaseResultMap" type="com.xh.entity.Inform" >
-    <id column="iid" property="iid" jdbcType="INTEGER" />
+    <id column="iId" property="iid" jdbcType="INTEGER" />
+    <result column="uId" property="uid" jdbcType="INTEGER" />
     <result column="ibody" property="ibody" jdbcType="VARCHAR" />
+    <result column="itype" property="itype" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    iid, ibody
+    iId, uId, ibody, itype
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xh.entity.InformExample" >
     select
@@ -81,14 +83,14 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from inform
-    where iid = #{iid,jdbcType=INTEGER}
+    where iId = #{iid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from inform
-    where iid = #{iid,jdbcType=INTEGER}
+    where iId = #{iid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xh.entity.InformExample" >
     delete from inform
@@ -97,25 +99,39 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xh.entity.Inform" >
-    insert into inform (iid, ibody)
-    values (#{iid,jdbcType=INTEGER}, #{ibody,jdbcType=VARCHAR})
+    insert into inform (iId, uId, ibody,
+      itype)
+    values (#{iid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{ibody,jdbcType=VARCHAR},
+      #{itype,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.xh.entity.Inform" >
     insert into inform
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="iid != null" >
-        iid,
+        iId,
+      </if>
+      <if test="uid != null" >
+        uId,
       </if>
       <if test="ibody != null" >
         ibody,
+      </if>
+      <if test="itype != null" >
+        itype,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="iid != null" >
         #{iid,jdbcType=INTEGER},
       </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
       <if test="ibody != null" >
         #{ibody,jdbcType=VARCHAR},
+      </if>
+      <if test="itype != null" >
+        #{itype,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -129,10 +145,16 @@
     update inform
     <set >
       <if test="record.iid != null" >
-        iid = #{record.iid,jdbcType=INTEGER},
+        iId = #{record.iid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uId = #{record.uid,jdbcType=INTEGER},
       </if>
       <if test="record.ibody != null" >
         ibody = #{record.ibody,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itype != null" >
+        itype = #{record.itype,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -141,8 +163,10 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update inform
-    set iid = #{record.iid,jdbcType=INTEGER},
-      ibody = #{record.ibody,jdbcType=VARCHAR}
+    set iId = #{record.iid,jdbcType=INTEGER},
+    uId = #{record.uid,jdbcType=INTEGER},
+    ibody = #{record.ibody,jdbcType=VARCHAR},
+    itype = #{record.itype,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -150,15 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xh.entity.Inform" >
     update inform
     <set >
+      <if test="uid != null" >
+        uId = #{uid,jdbcType=INTEGER},
+      </if>
       <if test="ibody != null" >
         ibody = #{ibody,jdbcType=VARCHAR},
       </if>
+      <if test="itype != null" >
+        itype = #{itype,jdbcType=INTEGER},
+      </if>
     </set>
-    where iid = #{iid,jdbcType=INTEGER}
+    where iId = #{iid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xh.entity.Inform" >
     update inform
-    set ibody = #{ibody,jdbcType=VARCHAR}
-    where iid = #{iid,jdbcType=INTEGER}
+    set uId = #{uid,jdbcType=INTEGER},
+      ibody = #{ibody,jdbcType=VARCHAR},
+      itype = #{itype,jdbcType=INTEGER}
+    where iId = #{iid,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -24,7 +24,7 @@
 <body>
     <center>
         <form action="${pageContext.servletContext.contextPath}/editinform.action" method="post">
-            <textarea class="form-control" name="ibody" cols="30" rows="17" aria-label="With textarea">${body}</textarea>
+            <textarea class="form-control" name="ibody" cols="30" rows="17" aria-label="With textarea">${inform.ibody}</textarea>
             <%--<textarea name="ibody" cols="100" rows="30" >${body}--%>
             <%--</textarea>--%>
             <br/>

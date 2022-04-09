@@ -15,7 +15,7 @@
 <body>
     <center>
         <h2>公告</h2>
-        <p>${body}</p>
+        <p>${inform.ibody}</p>
         <br/>
     </center>
 </body>

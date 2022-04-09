@@ -66,7 +66,7 @@ public class MainController {
     @RequestMapping("/admininform.action")
     public String admininform(HttpSession session){
         Inform inform = informService.findInform();
-        session.setAttribute("body",inform.getIbody());
+        session.setAttribute("inform",inform);
         return "/public/admininform";
     }
 
@@ -76,8 +76,12 @@ public class MainController {
      * @return
      */
     @RequestMapping("/editinform.action")
-    public String editinform(Inform inform){
-        informService.editInform(inform);
+    public String editinform(Inform inform, HttpSession session){
+        //获取当前登录的用户
+        User user = (User) session.getAttribute("user");
+        //获取公告，用于后面编译
+        Inform inform1 =(Inform) session.getAttribute("inform");
+        informService.editInform(inform, user.getUid(), inform1.getIid());
         return "redirect:/admininform.action";
 
     }
@@ -91,7 +95,7 @@ public class MainController {
     public String inform(HttpSession session){
         Inform inform = informService.findInform();
         System.out.println(inform);
-        session.setAttribute("body",inform.getIbody());
+        session.setAttribute("inform",inform);
         return "/public/inform";
     }
 

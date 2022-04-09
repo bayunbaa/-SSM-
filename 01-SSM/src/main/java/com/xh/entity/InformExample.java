@@ -105,62 +105,122 @@ public class InformExample {
         }
 
         public Criteria andIidIsNull() {
-            addCriterion("iid is null");
+            addCriterion("iId is null");
             return (Criteria) this;
         }
 
         public Criteria andIidIsNotNull() {
-            addCriterion("iid is not null");
+            addCriterion("iId is not null");
             return (Criteria) this;
         }
 
         public Criteria andIidEqualTo(Integer value) {
-            addCriterion("iid =", value, "iid");
+            addCriterion("iId =", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidNotEqualTo(Integer value) {
-            addCriterion("iid <>", value, "iid");
+            addCriterion("iId <>", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidGreaterThan(Integer value) {
-            addCriterion("iid >", value, "iid");
+            addCriterion("iId >", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("iid >=", value, "iid");
+            addCriterion("iId >=", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidLessThan(Integer value) {
-            addCriterion("iid <", value, "iid");
+            addCriterion("iId <", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidLessThanOrEqualTo(Integer value) {
-            addCriterion("iid <=", value, "iid");
+            addCriterion("iId <=", value, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidIn(List<Integer> values) {
-            addCriterion("iid in", values, "iid");
+            addCriterion("iId in", values, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidNotIn(List<Integer> values) {
-            addCriterion("iid not in", values, "iid");
+            addCriterion("iId not in", values, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidBetween(Integer value1, Integer value2) {
-            addCriterion("iid between", value1, value2, "iid");
+            addCriterion("iId between", value1, value2, "iid");
             return (Criteria) this;
         }
 
         public Criteria andIidNotBetween(Integer value1, Integer value2) {
-            addCriterion("iid not between", value1, value2, "iid");
+            addCriterion("iId not between", value1, value2, "iid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIsNull() {
+            addCriterion("uId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIsNotNull() {
+            addCriterion("uId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidEqualTo(Integer value) {
+            addCriterion("uId =", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotEqualTo(Integer value) {
+            addCriterion("uId <>", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidGreaterThan(Integer value) {
+            addCriterion("uId >", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("uId >=", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidLessThan(Integer value) {
+            addCriterion("uId <", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidLessThanOrEqualTo(Integer value) {
+            addCriterion("uId <=", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIn(List<Integer> values) {
+            addCriterion("uId in", values, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotIn(List<Integer> values) {
+            addCriterion("uId not in", values, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidBetween(Integer value1, Integer value2) {
+            addCriterion("uId between", value1, value2, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotBetween(Integer value1, Integer value2) {
+            addCriterion("uId not between", value1, value2, "uid");
             return (Criteria) this;
         }
 
@@ -231,6 +291,66 @@ public class InformExample {
 
         public Criteria andIbodyNotBetween(String value1, String value2) {
             addCriterion("ibody not between", value1, value2, "ibody");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeIsNull() {
+            addCriterion("itype is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeIsNotNull() {
+            addCriterion("itype is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeEqualTo(Integer value) {
+            addCriterion("itype =", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeNotEqualTo(Integer value) {
+            addCriterion("itype <>", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeGreaterThan(Integer value) {
+            addCriterion("itype >", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("itype >=", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeLessThan(Integer value) {
+            addCriterion("itype <", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeLessThanOrEqualTo(Integer value) {
+            addCriterion("itype <=", value, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeIn(List<Integer> values) {
+            addCriterion("itype in", values, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeNotIn(List<Integer> values) {
+            addCriterion("itype not in", values, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeBetween(Integer value1, Integer value2) {
+            addCriterion("itype between", value1, value2, "itype");
+            return (Criteria) this;
+        }
+
+        public Criteria andItypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("itype not between", value1, value2, "itype");
             return (Criteria) this;
         }
     }
