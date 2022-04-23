@@ -38,7 +38,7 @@
 <body >
 <center>
     <div id="dialog" title="提示信息">
-        <p>提交报修信息成功</p>
+        <p>安装设备成功</p>
     </div>
     <div id="condition" style="text-align: center">
         <form id="myform" action="${pageContext.request.contextPath}/worker/editBaoXiuState.action" method="get">

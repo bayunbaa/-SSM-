@@ -106,17 +106,19 @@
         $("#s4").empty();
         $("#s3").empty();
         var password = $("#upassword1").val();
+        //确认密码
         var password2 = $("#password2").val();
-        if (password==null ||password == ''){
+        if (password==null ||password == ''||password.length<1){
             $("#s3").html("密码不能为空!");
             return;
         }
-        if (password2==null ||password2 == ''){
+        if (password2==null ||password2 == ''||password.length<1){
             $("#s4").html("密码不能为空!");
             return;
         }
         if (password!=password2){
             $("#s4").html("两次密码不一致!");
+
         }
 
 
@@ -129,6 +131,17 @@
         var s2 = $("#s2").text();
         var s3 = $("#s3").text();
         var s4 = $("#s4").text();
+        var password = $("#upassword1").val();
+        //确认密码
+        var password2 = $("#password2").val();
+        if (password.length<1){
+            $("#s3").html("密码不能为空!");
+            return;
+        }
+        if (password2.length<1){
+            $("#s4").html("确认密码不能为空!");
+            return;
+        }
 
         if (s1.length>0) {
             return;

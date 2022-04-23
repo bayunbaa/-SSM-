@@ -41,6 +41,7 @@
 
         </form>
     </div>
+    <h1>仓库已有设备类型</h1>
 
     <table class="table table-striped">
         <thead>

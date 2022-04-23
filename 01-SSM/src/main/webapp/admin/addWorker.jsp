@@ -43,11 +43,11 @@
                             <input type="password" id="password2" name="location" class="form-control" placeholder="确认密码"  aria-describedby="basic-addon1"></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><span id="s3" style="color: red"></span></td>
+                        <td colspan="2"><span id="s3" style="color: red;margin-left: 100px"></span></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center" style="padding-top: 10px">
-                            <button type="button" class="btn btn-primary" onclick="tijiao()">修改密码</button>
+                            <button type="button" class="btn btn-primary" onclick="tijiao()">添加</button>
                             <%--<input  type="submit" class="btn btn-primary" value="修改密码">--%>
                         </td>
                     </tr>
