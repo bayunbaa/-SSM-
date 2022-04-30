@@ -11,12 +11,16 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css">
-    <script src="../js/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="../js/popper.min.js"integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>
+    <script src="../js/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="../js/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.min.js"
+            integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3"
+            crossorigin="anonymous"></script>
     <script src="../js/jquery-3.6.0.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
 
     <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
     <%--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
@@ -28,20 +32,11 @@
         }
     </style>
 </head>
-<script>
-    $(function() {
-        $( "#dialog" ).dialog();
-    })
-</script>
 
-
-<body >
+<body>
 <center>
-    <div id="dialog" title="提示信息">
-        <p>安装设备成功</p>
-    </div>
     <div id="condition" style="text-align: center">
-        <form id="myform" action="${pageContext.servletContext.contextPath}/worker/installshebeiPre.action" method="get">
+        <form id="myform" action="${pageContext.servletContext.contextPath}/admin/chaKanYiXiuXinXi.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
 
         </form>
@@ -52,34 +47,23 @@
         <tr>
             <th scope="col">编号</th>
             <th scope="col">设备名称</th>
-            <th scope="col">安装位置</th>
-            <th scope="col">安装进度</th>
+            <th scope="col">位置</th>
+            <th scope="col">原因</th>
+            <th scope="col">提交时间</th>
+            <th scope="col">维修进度</th>
+
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${info.list}" var="c" varStatus="a">
-
             <tr>
-                <%--
-
-
-
-    private String fname;
-
-    private String location;
-
-    private String createtime;
-
-    private String plan;
-
-    private String test;
-                --%>
                 <td>${a.index+1}</td>
                 <td>${c.fname}</td>
                 <td>${c.location}</td>
-                <td>
-                    <input type="checkbox" name="box1" id="box1" onclick="ajaxPanDuan(${c.id})">
-                </td>
+                <td>${c.details}</td>
+                <td>${c.createtime}</td>
+                <td>${c.plan}</td>
+
             </tr>
         </c:forEach>
         </tbody>
@@ -139,12 +123,12 @@
     function ajaxPanDuan(id) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/worker/installshebei.action",
+            url: "http://localhost:8080/worker/editXinxi.action",
             data: {
                 'id':id
             },
             success: function(){
-                window.location.href="http://localhost:8080/worker/installshebeiSuff.action"
+                window.location.href="http://localhost:8080/worker/editBaoXiuState.action"
 
             }
         });
@@ -157,6 +141,16 @@
        $("#page").val(page)
        $("#myform").submit();
    }
+
+
+   /* 点击去安装设备 */
+    function anzhuang(id) {
+        window.location.href="http://localhost:8080/admin/anzhuangPost.action?id="+id;
+
+    }
+
+
+
 </script>
 
 </html>

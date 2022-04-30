@@ -10,6 +10,7 @@ import com.xh.service.adminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,6 +40,14 @@ public class AdminController {
     @RequestMapping("/addShebei.action")
     public String addShebei(Facility facility){
         Integer ftype = facility.getFtype();
+        System.out.println(facility);
+        if (facility.getFname()==null || facility.getFname()==""||facility.getFtime()==null ||facility.getFtime()==""||facility.getFfctory()==null||facility.getFfctory()==""){
+            return  "admin/jinkualertinfo";
+
+        }
+        if (facility.getFnum()== null){
+            return  "admin/jinkualertnum";
+        }
         if (ftype == -1){
             return "admin/jinkualerttype";
         }
@@ -241,7 +250,7 @@ public class AdminController {
         }
         PageInfo<List<Repairs>> info =  adminService.findServiceByYiXiuplan(page);
         request.setAttribute("info", info);
-        return "admin/WeiXiuSheBei";
+        return "admin/YiXiuSheBei";
     }
 
     /**
@@ -253,6 +262,7 @@ public class AdminController {
     public String ajaxUname(String uname){
         System.out.println("呀呀呀");
         User user = adminService.findAjaxUname(uname);
+
         if (user == null){
             return null;
         }
@@ -267,6 +277,16 @@ public class AdminController {
      */
     @RequestMapping("/addWorker.action")
     public String addWorker(User user){
+        if (user.getUname() == null||user.getUname()==""){
+            return "admin/addWorkerAlertname";
+        }
+        //去数据库中查询该用户名是否已经存在
+        String name = user.getUname();
+        //去数据中进行查询
+        User users = adminService.findByUname(name);
+        if (users!=null){
+            return "admin/addWorkerAlertnameNotNull";
+        }
         int num = adminService.addWorker(user);
         return "admin/addWorkerAlert";
     }

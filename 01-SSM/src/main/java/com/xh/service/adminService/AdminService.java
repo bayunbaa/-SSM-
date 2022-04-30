@@ -52,4 +52,6 @@ public interface AdminService {
     PageInfo<List<User>> findStudent(Integer page);
     //需要商品采购
     PageInfo<List<Addfacility>> caigou(Integer page);
+    //去数据中查询该用户名是否已经存在
+    User findByUname(String name);
 }

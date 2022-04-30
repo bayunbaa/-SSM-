@@ -34,6 +34,9 @@ public class StudentController {
      */
     @RequestMapping("/baoxiu.action")
     public String baoxiu(Repairs repairs, HttpSession session){
+        if (repairs.getFname()==null||repairs.getFname()==""||repairs.getLocation()==""||repairs.getLocation()==null||repairs.getDetails()==null||repairs.getDetails()==""){
+            return "student/sheBeiBaoXiualertNotNull";
+        }
         //取出当前登录用户
         User user = (User) session.getAttribute("user");
         System.out.println(user);

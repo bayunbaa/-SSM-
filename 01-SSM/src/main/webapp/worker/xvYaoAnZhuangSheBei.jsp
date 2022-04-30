@@ -36,7 +36,7 @@
 <body>
 <center>
     <div id="condition" style="text-align: center">
-        <form id="myform" action="${pageContext.request.contextPath}/worker/editBaoXiuState.action" method="get">
+        <form id="myform" action="${pageContext.servletContext.contextPath}/worker/installshebeiPre.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
 
         </form>

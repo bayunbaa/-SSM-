@@ -414,4 +414,20 @@ public class AdminServiceImpl implements AdminService {
         return new PageInfo(addfacilities);
 
     }
+
+    /**
+     * 查询该用户名是否已经存在
+     * @param name
+     * @return
+     */
+    @Override
+    public User findByUname(String name) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUnameEqualTo(name);
+        List<User> users = userMapper.selectByExample(example);
+        if (users.size()==0){
+            return null;
+        }
+        return users.get(0);
+    }
 }

@@ -78,6 +78,9 @@ public class TeacherController {
      */
     @RequestMapping("/addSheBei.action")
     public String addSheBei(Addfacility addfacility, HttpSession session){
+        if (addfacility.getFname()==null||addfacility.getFname()==""||addfacility.getLocation()==null||addfacility.getLocation()==""||addfacility.getTest()==null||addfacility.getTest()==""){
+            return "teacher/addSheBeialertNotNull";
+        }
         //将当前用户登录的Id，存进去
         User user = (User) session.getAttribute("user");
         addfacility.setUid(user.getUid()+"");
