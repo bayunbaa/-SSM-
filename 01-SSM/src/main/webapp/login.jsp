@@ -57,7 +57,7 @@
                                     <option value="-1">请选择分类</option>
                                     <option value="1">管理员</option>
                                     <option value="2">维修人员</option>
-                                    <option value="3">老师</option>
+                                    <option value="3">教师</option>
                                     <option value="4">学生</option>
                                 </select>
                                 <div class="tips"></div>
