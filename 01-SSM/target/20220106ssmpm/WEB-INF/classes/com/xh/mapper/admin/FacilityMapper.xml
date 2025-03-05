@@ -11,6 +11,7 @@
     <result column="ffctory" property="ffctory" jdbcType="VARCHAR" />
     <result column="ftrange" property="ftrange" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -40,6 +41,7 @@
       </foreach>
     </where>
   </sql>
+
   <sql id="Update_By_Example_Where_Clause" >
     <where >
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >
@@ -69,9 +71,11 @@
       </foreach>
     </where>
   </sql>
+
   <sql id="Base_Column_List" >
-    id, ftid, fname, ftime, fnum, ftype, ffctory, ftrange
+    id, ftid, fname,fgrade, ftime, fnum, ftype, ffctory, ftrange
   </sql>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xh.entity.FacilityExample" >
     select
     <if test="distinct" >
@@ -101,6 +105,11 @@
       <if test="typeid!=-1">
         and ftype = #{typeid}
       </if>
+
+      <if test="gradeid !=null and gradeid != ''">
+        and fgrade like concat('%',#{gradeid},'%')
+      </if>
+
     </where>
   </select>
 
@@ -113,6 +122,9 @@
     from facility
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from facility
     where id = #{id,jdbcType=INTEGER}
@@ -125,12 +137,13 @@
   </delete>
   <insert id="insert" parameterType="com.xh.entity.Facility" >
     insert into facility (id, ftid, fname, 
-      ftime, fnum, ftype, 
+      ftime, fgrade,fnum, ftype,
       ffctory, ftrange)
     values (#{id,jdbcType=INTEGER}, #{ftid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, 
-      #{ftime,jdbcType=VARCHAR}, #{fnum,jdbcType=INTEGER}, #{ftype,jdbcType=INTEGER}, 
+      #{ftime,jdbcType=VARCHAR}, #{fgrade,jdbcType=INTEGER},#{fnum,jdbcType=INTEGER}, #{ftype,jdbcType=INTEGER},
       #{ffctory,jdbcType=VARCHAR}, #{ftrange,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.xh.entity.Facility" >
     insert into facility
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -145,6 +158,9 @@
       </if>
       <if test="ftime != null" >
         ftime,
+      </if>
+      <if test="fgrade != null" >
+        fgrade,
       </if>
       <if test="fnum != null" >
         fnum,
@@ -171,6 +187,9 @@
       </if>
       <if test="ftime != null" >
         #{ftime,jdbcType=VARCHAR},
+      </if>
+      <if test="fgrade != null" >
+        #{fgrade,jdbcType=VARCHAR},
       </if>
       <if test="fnum != null" >
         #{fnum,jdbcType=INTEGER},
@@ -279,6 +298,20 @@
     update facility
     set ftid = #{ftid,jdbcType=INTEGER},
       fname = #{fname,jdbcType=VARCHAR},
+      fgrade = #{fgrade,jdbcType=VARCHAR},
+      ftime = #{ftime,jdbcType=VARCHAR},
+      fnum = #{fnum,jdbcType=INTEGER},
+      ftype = #{ftype,jdbcType=INTEGER},
+      ffctory = #{ffctory,jdbcType=VARCHAR},
+      ftrange = #{ftrange,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateFacility" parameterType="com.xh.entity.Facility" >
+    update facility
+    set ftid = #{ftid,jdbcType=INTEGER},
+      fname = #{fname,jdbcType=VARCHAR},
+        fgrade = #{fgrade,jdbcType=VARCHAR},
       ftime = #{ftime,jdbcType=VARCHAR},
       fnum = #{fnum,jdbcType=INTEGER},
       ftype = #{ftype,jdbcType=INTEGER},

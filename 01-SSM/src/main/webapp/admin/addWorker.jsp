@@ -8,107 +8,142 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>添加维修人员账号</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="../js/popper.min.js"integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>
-    <script src="../js/jquery-3.6.0.min.js"></script>
     <style>
-        tr{
-            height: 40px;
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-default {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
+        .btn-default:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
+<body>
 
-<body >
-    <center>
-        <h1>添加维修人员账号</h1>
-        <form id="f1" action="${pageContext.servletContext.contextPath}/admin/addWorker.action" method="post">
-            <div class="input-group mb-3">
-                <table style="margin-left: 360px">
-                    <tr>
-                    <td><p><h5>用户名:</h5></p></td>
-                    <td> <p></p>
-                        <input type="text" name="uname" id="uname" onchange="ajaxUname()"   class="form-control"  aria-label="Username" aria-describedby="basic-addon1"></td>
-                </tr>
-                        <tr>
-                        <td><p><h5>密码:</h5></p></td>
-                        <td> <p></p>
-                            <input type="password" name="upassword" id="upassword1" class="form-control" placeholder="密码"   aria-describedby="basic-addon1"></td>
-                    </tr>
-                    <tr>
-                        <td><p><h5>确认密码:</h5></p></td>
-                        <td> <p></p>
-                            <input type="password" id="password2" name="location" class="form-control" placeholder="确认密码"  aria-describedby="basic-addon1"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><span id="s3" style="color: red;margin-left: 100px"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center" style="padding-top: 10px">
-                            <button type="button" class="btn btn-primary" onclick="tijiao()">添加</button>
-                            <%--<input  type="submit" class="btn btn-primary" value="修改密码">--%>
-                        </td>
-                    </tr>
+<div class="container">
+    <h1 class="text-center">添加维修人员账号</h1>
+    <form id="f1" action="${pageContext.servletContext.contextPath}/admin/addWorker.action" method="post">
+        <div class="form-group">
+            <label for="uname">用户名:</label>
+            <input type="text" class="form-control" id="uname" name="uname" onchange="ajaxUname()" aria-describedby="unameHelp">
+            <small id="unameHelp" class="form-text text-muted">请输入唯一的用户名。</small>
+        </div>
+        <div class="form-group">
+            <label for="upassword1">密码:</label>
+            <input type="password" class="form-control" id="upassword1" name="upassword" placeholder="密码">
+        </div>
+        <div class="form-group">
+            <label for="password2">确认密码:</label>
+            <input type="password" class="form-control" id="password2" name="confirmPassword" placeholder="确认密码">
+        </div>
+        <div id="s3" class="error-message"></div>
+        <div class="text-center">
+            <button type="button" class="btn btn-default" onclick="goBack()">返回</button>
+            <button type="button" class="btn btn-primary" onclick="tijiao()">添加</button>
+        </div>
+    </form>
+    <% if (request.getAttribute("successMessage") != null) { %>
+    <div class="alert alert-success mt-3" role="alert">
+        <%= request.getAttribute("successMessage") %>
+    </div>
+    <% } else if (request.getAttribute("errorMessage") != null) { %>
+    <div class="alert alert-danger mt-3" role="alert">
+        <%= request.getAttribute("errorMessage") %>
+    </div>
+    <% } %>
+</div>
 
-                </table>
-            </div>
-        </form>
-    </center>
-</body>
+<script src="../js/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="../js/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="../js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>
+<script src="../js/jquery-3.6.0.min.js"></script>
 <script>
-
     function ajaxUname() {
-
         $("#s3").empty();
         var uname = $("#uname").val();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/admin/ajaxUname.action",
+            url: "${pageContext.servletContext.contextPath}/admin/ajaxUname.action",
             data: {
                 'uname': uname
             },
-            success: function(data){
-
-                if (data!=null){
+            success: function(data) {
+                if (data) {
                     $("#s3").html("用户名重复!");
                 }
             }
         });
-
-
     }
-    
-    function tijiao() {
-        var s3 = $("#s3").val();
-        if (s3.length > 0){
-            return false;
-        }
 
+    function tijiao() {
         $("#s3").empty();
-        var uname=$("#uname").val();
+        var uname = $("#uname").val();
         var password = $("#upassword1").val();
         var password2 = $("#password2").val();
-        if (uname==null||uname==''||uname.length<1){
+        if (!uname || uname.length < 1) {
             $("#s3").html("用户名不能为空!");
-            return;
+            return false;
         }
-        if (password==null ||password == ''){
+        if (!password) {
             $("#s3").html("密码不能为空!");
-            return;
+            return false;
         }
-        if (password2==null ||password2 == ''){
+        if (!password2) {
             $("#s3").html("确认密码不能为空!");
-            return;
+            return false;
         }
-        if (password!=password2){
+        if (password !== password2) {
             $("#s3").html("两次密码不一致!");
-            return;
+            return false;
         }
         $("#f1").submit();
-
     }
 
+    function goBack() {
+        window.location.href = "${pageContext.servletContext.contextPath}/admin/findWork.action";
+    }
 </script>
+</body>
 </html>

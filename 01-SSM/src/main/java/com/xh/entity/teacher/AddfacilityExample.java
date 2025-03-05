@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddfacilityExample {
+    private Integer uid;
+
+    // 省略其他属性和 getter/setter 方法
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
     protected String orderByClause;
 
     protected boolean distinct;

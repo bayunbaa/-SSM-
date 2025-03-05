@@ -210,6 +210,7 @@
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.xh.entity.User" >
     update user
     set uname = #{uname,jdbcType=VARCHAR},

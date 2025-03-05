@@ -1,15 +1,20 @@
 package com.xh.controller.work;
 
 import com.github.pagehelper.PageInfo;
+import com.xh.entity.User;
 import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
 import com.xh.service.workerService.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -72,6 +77,45 @@ public class WorkerController {
         return "worker/yiJiJue";
     }
 
+
+    //查看报废
+    @RequestMapping("/deleteFacility.action")
+    public String findDelete(Integer page, HttpSession session, HttpServletRequest request){
+        page = page == null ? 1 : page;
+        User user = (User) session.getAttribute("user");
+        PageInfo<List<Addfacility>> info = workerService.findByUid(page, user.getUid());
+        request.setAttribute("info",info);
+        return "worker/findDelete";
+    }
+
+    //报废处理
+    @RequestMapping("/delete.action")
+    public String delete(Integer id, HttpSession session, HttpServletRequest request) {
+        workerService.deleteById(id);
+        return "redirect:/worker/deleteFacility.action"; // 重定向到另一个 URL
+    }
+
+//    //点击报废
+//    @RequestMapping("/delete.action")
+//    public String delete(Integer id, HttpSession session, HttpServletRequest request) {
+//        workerService.deleteById(id);
+//        return "redirect:/worker/deleteFacility.action"; // 重定向到另一个 URL
+//    }
+//
+
+
+    /* 老师申请报废设备，管理员同意后，维修工需要去报废,这里查出来所有报废的设备 */
+    @RequestMapping("/findAlreadyDelete.action")
+    public String findAlreadyDelete(Integer page, HttpSession session, HttpServletRequest request){
+        page = page == null ? 1 : page;
+        User user = (User) session.getAttribute("user");
+        PageInfo<List<Addfacility>> info =  workerService.findDelete(page, user.getUid());
+        request.setAttribute("info",info);
+        return "teacher/findDelete";
+    }
+
+
+
     /* 老师申请安装设备，管理员同意后，维修工需要去安装,这里查出来所有没有安装的设备 */
     @RequestMapping("/installshebeiPre.action")
     public String installshebeiPre(Integer page, HttpServletRequest request){
@@ -89,24 +133,22 @@ public class WorkerController {
      * @return
      */
     @RequestMapping("/installshebei.action")
-    @ResponseBody
-    public String installshebei(Integer id){
-       int num = workerService.updateAddFacilityByPlan(id);
-        return "安装成功";
-    }
-
-    /**
-     * 维修工点击安装完成，跳转到新的页面显示，弹出安装成功
-     * @return
-     */
-    @RequestMapping("/installshebeiSuff.action")
-    public String installshebeiSuff(Integer page, HttpServletRequest request){
-        if (page == null){
+    public String installshebei(@RequestParam(required = false) Integer id, @RequestParam(required = false) Integer page,
+                                RedirectAttributes redirectAttributes)
+    {
+        if (id != null) {
+            int num = workerService.updateAddFacilityByPlan(id);
+            if (num > 0) {
+                redirectAttributes.addFlashAttribute("message", "安装成功");
+            } else {
+                redirectAttributes.addFlashAttribute("message", "安装失败");
+            }
+        }
+        if (page == null) {
             page = 1;
         }
-        PageInfo<List<Addfacility>> info =workerService.findAddFacilityByPlan(page);
-        request.setAttribute("info", info);
-        return "worker/xvYaoAnZhuangSheBeiAlert";
+        redirectAttributes.addAttribute("page", page);
+        return "redirect:/worker/installshebeiPre.action";
     }
 
 

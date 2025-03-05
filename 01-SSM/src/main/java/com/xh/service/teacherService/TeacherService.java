@@ -3,8 +3,6 @@ package com.xh.service.teacherService;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.teacher.Addfacility;
 
-import java.util.List;
-
 /**
  * @Description: 老师添加设备
  * @Author: xiaohao
@@ -20,9 +18,14 @@ public interface TeacherService {
 
     /**
      * 老师申请设备的进度
+     *
      * @param page
      * @param uid
      * @return
      */
-    PageInfo<List<Addfacility>> findByUid(Integer page, Integer uid);
+    PageInfo<Addfacility> findByUid(Integer page, Integer uid);
+
+    void deleteById(Integer id);
+
+    int insertDeleteFacility(Addfacility addfacility);
 }

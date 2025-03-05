@@ -19,10 +19,10 @@
 
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="driverClassName" value="${jdbc.drivers}"></property>
-		<property name="url" value="${jdbc.urls}"></property>
-		<property name="username" value="${jdbc.usernames}"></property>
-		<property name="password" value="${jdbc.passwords}"></property>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
  	</bean>
 
 	<!-- mybatis工厂 -->

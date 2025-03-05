@@ -3,6 +3,7 @@ package com.xh.service.studentService;
 import com.github.pagehelper.PageInfo;
 import com.xh.entity.User;
 import com.xh.entity.student.Repairs;
+import com.xh.entity.teacher.Addfacility;
 
 import java.util.List;
 
@@ -19,12 +20,14 @@ public interface StudentService {
      */
     int insert(Repairs repairs);
 
+
     /**
      * 查看当前用户设备报修信息
      * @param uid
      * @return
      */
     PageInfo<List<Repairs>> findByUid(Integer page, Integer uid);
+    PageInfo<List<Addfacility>> findByUid2(Integer page, Integer uid);
 
     /**
      * 修改密码

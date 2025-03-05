@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>设备管理</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -21,10 +21,6 @@
             integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3"
             crossorigin="anonymous"></script>
     <script src="../js/jquery-3.6.0.min.js"></script>
-
-    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>--%>
 
     <style>
         tr {
@@ -38,7 +34,6 @@
     <div id="condition" style="text-align: center">
         <form id="myform" action="${pageContext.request.contextPath}/worker/editBaoXiuState.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
-
         </form>
     </div>
 
@@ -51,73 +46,47 @@
             <th scope="col">详情</th>
             <th scope="col">提交时间</th>
             <th scope="col">处理进度</th>
-            <th scope="col">已解决</th>
-
+            <th scope="col">解决操作</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${info.list}" var="c" varStatus="a">
-
             <tr>
-                <%--<input type="hidden" id="hidden1" value="${c.id}">--%>
-                <td>${a.index+1}</td>
+                <td>${(info.pageNum - 1) * info.pageSize + a.index + 1}</td>
                 <td>${c.fname}</td>
                 <td>${c.location}</td>
                 <td>${c.details}</td>
                 <td>${c.createtime}</td>
                 <td>${c.plan}</td>
-                <td><a href="${pageContext.servletContext.contextPath}/worker">
-                    <input type="checkbox" name="box1" id="box1" onclick="ajaxPanDuan(${c.id})">
-                </a></td>
+                <td><input type="checkbox" name="box1" id="box1" onclick="ajaxPanDuan(${c.id})"></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 
-    <%-- 分页 --%>
-    总共:${info.pages}页,当前第:${info.pageNum}页
-    <nav aria-label="Page navigation example">
+ <div>
+        总共: ${info.pages} 页, 当前第: ${info.pageNum} 页
+    </div>
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item ">
-                <c:if test="${!info.hasPreviousPage}">
-                    <a class="page-link">Previous</a>
-                </c:if>
-                <c:if test="${info.hasPreviousPage}">
-                    <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">Previous</a>--%>
-                    <%--<a class="page-link"--%>
-                       <%--onclick="ajax(${info.prePage})" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">Previous</a>--%>
-                    <a class="page-link"
-                       onclick="ajax(${info.prePage})">Previous</a>
-                </c:if>
+            <li class="page-item ${!info.hasPreviousPage ? 'disabled' : ''}">
+                <a class="page-link" href="<c:if test="${info.hasPreviousPage}"><c:url value='/worker/editBaoXiuState.action'/>?page=${info.prePage}</c:if>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
             </li>
-            <c:if test="${info.hasPreviousPage}">
-                <%--<li class="page-item"><a class="page-link"--%>
-                                         <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">${info.prePage}</a>--%>
-                <a class="page-link"
-                   onclick="ajax(${info.prePage})">${info.prePage}
-                   </a>
+            <c:set var="startPage" value="${info.pageNum - 2 > 0 ? info.pageNum - 2 : 1}"/>
+            <c:set var="endPage" value="${startPage + 4 < info.pages ? startPage + 4 : info.pages}"/>
+            <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
+                <li class="page-item ${info.pageNum == pageNum ? 'active' : ''}">
+                    <a class="page-link" href="<c:url value='/worker/editBaoXiuState.action'/>?page=${pageNum}">${pageNum}</a>
                 </li>
-            </c:if>
-            <li class="page-item">
-                <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.pageNum}">${info.pageNum}</a>--%>
-                    <a class="page-link" onclick="ajax(${info.pageNum})">${info.pageNum}</a>
-
-            </li>
-            <c:if test="${info.hasNextPage}">
-                <li class="page-item">
-                    <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">${info.nextPage}</a>--%>
-                        <a class="page-link" onclick="ajax(${info.nextPage})">${info.nextPage}</a>
-                </li>
-            </c:if>
-            <li class="page-item">
-                <c:if test="${info.isLastPage}">
-                    <a class="page-link">Next</a>
-                </c:if>
-                <c:if test="${!info.isLastPage}">
-                    <%--<a class="page-link"--%>
-                       <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">Next</a>--%>
-                    <a class="page-link" onclick="ajax(${info.nextPage})">Next</a>
-                </c:if>
+            </c:forEach>
+            <li class="page-item ${!info.hasNextPage ? 'disabled' : ''}">
+                <a class="page-link" href="<c:if test="${info.hasNextPage}"><c:url value='/worker/editBaoXiuState.action'/>?page=${info.nextPage}</c:if>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -128,24 +97,17 @@
     function ajaxPanDuan(id) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/worker/editXinxi.action",
-            data: {
-                'id':id
-            },
-            success: function(){
-                window.location.href="http://localhost:8080/worker/editBaoXiuState.action"
-
+            url: "${pageContext.request.contextPath}/worker/editXinxi.action",
+            data: { 'id': id },
+            success: function() {
+                window.location.href = "${pageContext.request.contextPath}/worker/editBaoXiuState.action";
             }
         });
     }
 
-
-
-    <%-- 为了多条件查询数据回显 --%>
-   function ajax(page) {
-       $("#page").val(page)
-       $("#myform").submit();
-   }
+    function ajax(page) {
+        $("#page").val(page);
+        $("#myform").submit();
+    }
 </script>
-
 </html>

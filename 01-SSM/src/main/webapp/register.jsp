@@ -39,7 +39,8 @@
                         <select id="rols"  name="rols" onchange="typeYanzheng()">
                             <option value="-1">请选择身份信息</option>
                             <option value="3">教师</option>
-                            <option value="4">学生</option>
+                            <option value="2">维修员</option>
+                            <option value="1">管理员</option>
                         </select>
                         <span id="s2" style="color: red"></span>
                     </div>

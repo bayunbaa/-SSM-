@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: 19277
 Created-By: IntelliJ IDEA
-Build-Jdk: 1.8.0_231
+Built-By: lenovo
+Build-Jdk: Amazon Corretto version 17.0.11
 

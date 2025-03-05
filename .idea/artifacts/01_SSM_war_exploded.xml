@@ -52,7 +52,7 @@
           <element id="library" level="project" name="Maven: com.alipay.sdk:alipay-sdk-java:4.8.10.ALL" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.62" />
           <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.24" />
         </element>
       </element>
       <element id="directory" name="META-INF">

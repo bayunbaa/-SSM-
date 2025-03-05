@@ -1,44 +1,26 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 19277
-  Date: 2022/3/11
-  Time: 22:58
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="../js/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js"
-            integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3"
-            crossorigin="anonymous"></script>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-
-    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>--%>
-
     <style>
         tr {
             height: 40px;
         }
     </style>
 </head>
-
 <body>
 <center>
+    <div style="float: right;margin: 5px;">
+        <a class="btn btn-default" href="<c:url value="/admin/addWorker.jsp"/>" type="button" value="添加人员">添加人员</a>
+    </div>
     <div id="condition" style="text-align: center">
         <form id="myform" action="${pageContext.request.contextPath}/admin/findWork.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
-
         </form>
     </div>
 
@@ -48,74 +30,87 @@
             <th scope="col">编号</th>
             <th scope="col">用户名</th>
             <th scope="col">用户密码</th>
+            <th scope="col">操作</th>
+
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${info.list}" var="c" varStatus="a">
-
             <tr>
-                <td>${a.index+1}</td>
+                <td>${(info.pageNum - 1) * info.pageSize + a.index + 1}</td>
                 <td>${c.uname}</td>
                 <td>******</td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="updateUser(${c.uid})">修改</a>
+
+                    <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="deleteUser(${c.uid})">删除</a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 
     <%-- 分页 --%>
-    总共:${info.pages}页,当前第:${info.pageNum}页
-    <nav aria-label="Page navigation example">
+     <div>
+        总共: ${info.pages} 页, 当前第: ${info.pageNum} 页
+    </div>
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item ">
-                <c:if test="${!info.hasPreviousPage}">
-                    <a class="page-link">Previous</a>
-                </c:if>
-                <c:if test="${info.hasPreviousPage}">
-
-                    <a class="page-link"
-                       onclick="ajax(${info.prePage})">Previous</a>
-                </c:if>
+            <li class="page-item ${!info.hasPreviousPage ? 'disabled' : ''}">
+                <a class="page-link" href="<c:if test="${info.hasPreviousPage}"><c:url value='/admin/findWork.action'/>?page=${info.prePage}</c:if>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
             </li>
-            <c:if test="${info.hasPreviousPage}">
-                <%--<li class="page-item"><a class="page-link"--%>
-                                         <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">${info.prePage}</a>--%>
-                <a class="page-link"
-                   onclick="ajax(${info.prePage})">${info.prePage}
-                   </a>
+            <c:set var="startPage" value="${info.pageNum - 2 > 0 ? info.pageNum - 2 : 1}"/>
+            <c:set var="endPage" value="${startPage + 4 < info.pages ? startPage + 4 : info.pages}"/>
+            <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
+                <li class="page-item ${info.pageNum == pageNum ? 'active' : ''}">
+                    <a class="page-link" href="<c:url value='/admin/findWork.action'/>?page=${pageNum}">${pageNum}</a>
                 </li>
-            </c:if>
-            <li class="page-item">
-                <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.pageNum}">${info.pageNum}</a>--%>
-                    <a class="page-link" onclick="ajax(${info.pageNum})">${info.pageNum}</a>
-
-            </li>
-            <c:if test="${info.hasNextPage}">
-                <li class="page-item">
-                    <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">${info.nextPage}</a>--%>
-                        <a class="page-link" onclick="ajax(${info.nextPage})">${info.nextPage}</a>
-                </li>
-            </c:if>
-            <li class="page-item">
-                <c:if test="${info.isLastPage}">
-                    <a class="page-link">Next</a>
-                </c:if>
-                <c:if test="${!info.isLastPage}">
-                    <%--<a class="page-link"--%>
-                       <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">Next</a>--%>
-                    <a class="page-link" onclick="ajax(${info.nextPage})">Next</a>
-                </c:if>
+            </c:forEach>
+            <li class="page-item ${!info.hasNextPage ? 'disabled' : ''}">
+                <a class="page-link" href="<c:if test="${info.hasNextPage}"><c:url value='/admin/findWork.action'/>?page=${info.nextPage}</c:if>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
             </li>
         </ul>
     </nav>
 </center>
 
-</body>
-<script>
-    <%-- 为了多条件查询数据回显 --%>
-   function ajax(page) {
-       $("#page").val(page)
-       $("#myform").submit();
-   }
-</script>
 
+<script>
+    function deleteUser(uid) {
+        if (confirm("确定要删除该用户吗？")) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/admin/deleteUser.action",
+                type: "POST",
+                data: { uid: uid },
+                success: function(response) {
+                    if (response.success) {
+                        alert("删除成功！");
+                        // 重新加载当前页数据
+                        ajax(${info.pageNum});
+                    } else {
+                        alert("删除失败：" + response.message);
+                    }
+                },
+                error: function() {
+                    alert("删除请求失败，请稍后再试。");
+                }
+            });
+        }
+    }
+
+    function updateUser(uid) {
+        window.location.href = "${pageContext.request.contextPath}/admin/updateUser.action?uid=" + uid;
+    }
+
+    function ajax(page) {
+        $("#page").val(page);
+        $("#myform").submit();
+    }
+</script>
+</body>
 </html>

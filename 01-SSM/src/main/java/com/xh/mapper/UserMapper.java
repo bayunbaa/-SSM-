@@ -3,7 +3,10 @@ package com.xh.mapper;
 import com.xh.entity.User;
 import com.xh.entity.UserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper {
     /**
@@ -12,7 +15,6 @@ public interface UserMapper {
      * @return
      */
     List<User> selectByNameAndPassowrdAndRols(User user);
-
 
 
     int countByExample(UserExample example);
@@ -38,4 +40,11 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
 
+
+@Delete("delete from user where uid = #{uid}")
+    void delUser(Long uid);
+
+
+    @Select("select * from user where uname = #{uname}")
+    List<User> findUserByName(String uname);
 }

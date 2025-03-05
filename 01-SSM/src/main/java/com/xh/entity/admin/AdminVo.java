@@ -14,5 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdminVo {
     private String pname;
+    private String gradeid;
     private Integer typeid;
 }
