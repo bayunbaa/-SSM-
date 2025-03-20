@@ -10,6 +10,7 @@ public class Delivery {
     private String dtime;
 
     private Integer dnum;
+    private Integer dnum2;
 
     private Integer dtype;
 
@@ -89,5 +90,13 @@ public class Delivery {
 
     public void setDcollege(Integer dcollege) {
         this.dcollege = dcollege;
+    }
+
+    public Integer getDnum2() {
+        return dnum2;
+    }
+
+    public void setDnum2(Integer dnum2) {
+        this.dnum2 = dnum2;
     }
 }

@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>设备管理</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -21,10 +21,6 @@
             integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3"
             crossorigin="anonymous"></script>
     <script src="../js/jquery-3.6.0.min.js"></script>
-
-    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>--%>
-    <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-IjeXbuVdL81ilB5LykkImU8JN0WPja/i9uZAt2qjo2TnYk9NJ2MPfN3vzMH0R8n3" crossorigin="anonymous"></script>--%>
 
     <style>
         tr {
@@ -38,7 +34,6 @@
     <div id="condition" style="text-align: center">
         <form id="myform" action="${pageContext.request.contextPath}/student/baoXiuJinDu.action" method="get">
             <input id="page" type="hidden" name="page" value="${info.pageNum}">
-
         </form>
     </div>
 
@@ -54,10 +49,9 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${info.list}" var="c">
-
+        <c:forEach items="${info.list}" var="c" varStatus="a">
             <tr>
-                <td>${c.id}</td>
+                <td>${(info.pageNum - 1) * info.pageSize + a.index + 1}</td>
                 <td>${c.fname}</td>
                 <td>${c.location}</td>
                 <td>${c.details}</td>
@@ -72,46 +66,16 @@
     总共:${info.pages}页,当前第:${info.pageNum}页
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item ">
-                <c:if test="${!info.hasPreviousPage}">
-                    <a class="page-link">Previous</a>
-                </c:if>
-                <c:if test="${info.hasPreviousPage}">
-                    <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">Previous</a>--%>
-                    <%--<a class="page-link"--%>
-                       <%--onclick="ajax(${info.prePage})" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">Previous</a>--%>
-                    <a class="page-link"
-                       onclick="ajax(${info.prePage})">Previous</a>
-                </c:if>
+            <li class="page-item ${!info.hasPreviousPage ? 'disabled' : ''}">
+                <a class="page-link" onclick="ajax(${info.prePage})">Previous</a>
             </li>
-            <c:if test="${info.hasPreviousPage}">
-                <%--<li class="page-item"><a class="page-link"--%>
-                                         <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.prePage}">${info.prePage}</a>--%>
-                <a class="page-link"
-                   onclick="ajax(${info.prePage})">${info.prePage}
-                   </a>
+            <c:forEach begin="1" end="${info.pages}" var="i">
+                <li class="page-item ${info.pageNum == i ? 'active' : ''}">
+                    <a class="page-link" onclick="ajax(${i})">${i}</a>
                 </li>
-            </c:if>
-            <li class="page-item">
-                <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.pageNum}">${info.pageNum}</a>--%>
-                    <a class="page-link" onclick="ajax(${info.pageNum})">${info.pageNum}</a>
-
-            </li>
-            <c:if test="${info.hasNextPage}">
-                <li class="page-item">
-                    <%--<a class="page-link" href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">${info.nextPage}</a>--%>
-                        <a class="page-link" onclick="ajax(${info.nextPage})">${info.nextPage}</a>
-                </li>
-            </c:if>
-            <li class="page-item">
-                <c:if test="${info.isLastPage}">
-                    <a class="page-link">Next</a>
-                </c:if>
-                <c:if test="${!info.isLastPage}">
-                    <%--<a class="page-link"--%>
-                       <%--href="${pageContext.servletContext.contextPath}/admin/fenye.action?page=${info.nextPage}">Next</a>--%>
-                    <a class="page-link" onclick="ajax(${info.nextPage})">Next</a>
-                </c:if>
+            </c:forEach>
+            <li class="page-item ${!info.hasNextPage ? 'disabled' : ''}">
+                <a class="page-link" onclick="ajax(${info.nextPage})">Next</a>
             </li>
         </ul>
     </nav>
@@ -119,11 +83,9 @@
 
 </body>
 <script>
-    <%-- 为了多条件查询数据回显 --%>
-   function ajax(page) {
-       $("#page").val(page)
-       $("#myform").submit();
-   }
+    function ajax(page) {
+        $("#page").val(page);
+        $("#myform").submit();
+    }
 </script>
-
 </html>

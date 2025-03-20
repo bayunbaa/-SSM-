@@ -2,7 +2,6 @@ package com.xh.service.teacherService.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xh.entity.student.Repairs;
 import com.xh.entity.teacher.Addfacility;
 import com.xh.entity.teacher.AddfacilityExample;
 import com.xh.mapper.teacher.AddfacilityMapper;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,45 +42,70 @@ public class TeacherServiceImpl implements TeacherService {
         return num;
     }
 
+
+    @Override
+    public int insertDeleteFacility(Addfacility addfacility) {
+        //格式化日期
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format1 = format.format(date);
+        addfacility.setCreatetime(format1);
+        //设备维修的进度
+        addfacility.setPlan("1");
+        int num = addfacilityMapper.insertDelete(addfacility);
+        return num;
+    }
+
     /**
      * 查看老师申请设备的进度
+     *
      * @param page
      * @param uid
      * @return
      */
-    @Override
-    public PageInfo<List<Addfacility>> findByUid(Integer page, Integer uid) {
-        PageHelper.startPage(page, 5);
-        //将当前登录老师的id封装进去
+    public PageInfo<Addfacility> findByUid(Integer page, Integer uid) {
+        PageHelper.startPage(page, 10);
+        // 将当前登录老师的id封装进去
         AddfacilityExample example = new AddfacilityExample();
-        example.createCriteria().andUidEqualTo(uid + "");
+//        example.createCriteria().andUidEqualTo(uid + "");
         List<Addfacility> addfacilityList = addfacilityMapper.selectByExample(example);
-        //存显示状态为 2和3的
-        List<Addfacility> addfacilitys = new ArrayList<>();
-        //给查出来的安装设备记录信息设置编号，并对新添加的设备记录显示处理中
+        // 给查出来的报修记录信息设置编号，并对新创建的报修记录显示处理中
+        setRepairIdsAndUpdatePlanStatus(addfacilityList);
+        // 使用 PageHelper 分页后的结果来构造 PageInfo
+        PageInfo<Addfacility> pageInfo = new PageInfo<>(addfacilityList);
+        return pageInfo;
+    }
+
+    private void setRepairIdsAndUpdatePlanStatus(List<Addfacility> addfacilityList) {
         for (int i = 0; i < addfacilityList.size(); i++) {
-            addfacilityList.get(i).setId(i + 1);
-            //如果老师刚申请安装设备，是1这个状态，这个状态不显示
-            if (!addfacilityList.get(i).getPlan().equals("1")) {
-//               if (addfacilityList.get(i).getPlan().equals("1")){
-//                   addfacilityList.get(i).setPlan("审核中");
-//               }
-                if (addfacilityList.get(i).getPlan().equals("2")) {
-                    addfacilityList.get(i).setPlan("审核通过");
-                }
-                if (addfacilityList.get(i).getPlan().equals("3")) {
-                    addfacilityList.get(i).setPlan("已安装");
-                }
-                addfacilitys.add(addfacilityList.get(i));
+            Addfacility repair = addfacilityList.get(i);
+            repair.setId(i);
+            // 更新处理状态
+            switch (repair.getPlan()) {
+                case "1":
+                    repair.setPlan("处理中");
+                    break;
+                case "2":
+                    repair.setPlan("已处理");
+                    break;
+                case "3":
+                    repair.setPlan("已安装");
+                    break;
             }
         }
-            PageInfo<List<Addfacility>> pageInfo = new PageInfo(addfacilitys);
-
-            return pageInfo;
-        }
+    }
 
 
+    @Override
+    public void deleteById(Integer id) {
+        String plan="1";
+        //改变plan的值
+        addfacilityMapper.deleteById(id,plan);
+        Addfacility addfacility = addfacilityMapper.selectByPrimaryKey(id);
+        addfacilityMapper.insertDelete(addfacility);
+        addfacilityMapper.deleteAddFacility(id);
 
+    }
 
 
 }

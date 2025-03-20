@@ -6,6 +6,7 @@ public class User {
     private String uname;
 
     private String upassword;
+    private String confirmPassword;
 
     private Integer rols;
 
@@ -49,5 +50,13 @@ public class User {
 
     public void setRols(Integer rols) {
         this.rols = rols;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

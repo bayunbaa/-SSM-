@@ -46,4 +46,11 @@ public interface WorkerService {
      * @return
      */
     int updateAddFacilityByPlan(Integer id);
+
+    PageInfo<List<Addfacility>> findByUid(Integer page, Integer uid);
+
+    void deleteById(Integer id);
+
+
+    PageInfo<List<Addfacility>> findDelete(Integer page, Integer uid);
 }

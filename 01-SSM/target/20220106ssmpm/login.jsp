@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 19277
@@ -15,8 +16,8 @@
     <title>登录</title>
     <link rel="stylesheet" href="./css/pintuer.css">
     <link rel="stylesheet" href="./css/admin.css">
-    <script src="/js/jquery-3.6.0.min.js"></script>
-    <script src="/js/pintuer.js"></script>
+    <script src="<c:url value="/js/jquery-3.6.0.min.js"/>"></script>
+    <script src="<c:url value="/js/pintuer.js"/>"></script>
 </head>
 <body >
 <div class="bg" ></div>
@@ -48,21 +49,6 @@
                         </div>
                         <br>
 
-                        <div class="form-group">
-                            <div class="label">
-                                <label>用户类型：</label>
-                            </div>
-                            <div class="field">
-                                <select name="rols" class="1">
-                                    <option value="-1">请选择分类</option>
-                                    <option value="1">管理员</option>
-                                    <option value="2">维修人员</option>
-                                    <option value="3">老师</option>
-                                    <option value="4">学生</option>
-                                </select>
-                                <div class="tips"></div>
-                            </div>
-                        </div>
                     </div>
                     <span style="color: red; margin-left: 30px">${msg}</span>
                     <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录">
